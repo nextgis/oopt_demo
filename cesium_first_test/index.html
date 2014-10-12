@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version (or Chrome Frame if pre-IE11). -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Cesium test!</title>
+    <script src="Cesium/Build/Cesium/Cesium.js"></script>
+    <style>
+        @import url(Cesium/Build/Cesium/Widgets/widgets.css);
+
+        #cesiumContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainer',
+            {
+                timeline: false,
+                baseLayerPicker:false,
+                infoBox: false,
+                navigationHelpButton: false,
+                geocoder: false,
+                animation: false
+            }
+    );
+    var scene = viewer.scene;
+    var primitives = scene.primitives;
+
+    var dataSource = new Cesium.GeoJsonDataSource();
+    viewer.dataSources.add(dataSource);
+
+    Cesium.Math.setRandomNumberSeed(0);
+
+    var polygones_array = [];
+    var num_polygones = 30;
+
+    for (var i = 0; i < num_polygones + 10; i++) {
+        var num_points = Math.floor(Math.random() * 10);
+
+        var points_array = [];
+
+        var x = Math.random() * 180;
+        var y = Math.random() * 180;
+
+        var max_x = -1000;
+        var max_y = -1000;
+        var min_x = 1000;
+        var min_y = 1000;
+
+        for (var a = 0; a < num_points + 3; a++) {
+
+
+            var _x = x + Math.random() * 20;
+            var _y = y + Math.random() * 20;
+
+            if(_x < min_x) min_x = _x;
+            if(_x > max_x) max_x = _x;
+
+            if(_y < min_y) min_y = _y;
+            if(_y > max_y) max_y = _y;
+
+            points_array.push(_x);
+            points_array.push(_y);
+        }
+
+        var polygon = new Cesium.Polygon({
+            positions: Cesium.Cartesian3.fromDegreesArray(points_array)
+        });
+
+        polygon.max_x = max_x;
+        polygon.min_x = min_x;
+
+        polygon.max_y = max_y;
+        polygon.min_y = min_y;
+
+        polygon.material = Cesium.Material.fromType(Cesium.Material.ColorType, {
+            color : new Cesium.Color(Math.random(), Math.random(), Math.random(), 1)
+        });
+
+        primitives.add( polygon );
+
+        var west = min_x;
+        var south = min_y;
+        var east = max_x;
+        var north = max_y;
+
+        polygon.west = min_x;
+        polygon.south = min_y;
+        polygon.east = max_x;
+        polygon.north = max_y;
+
+//        var polylines = scene.primitives.add(new Cesium.PolylineCollection());
+//        polylines.add({
+//            positions : Cesium.Cartesian3.fromDegreesArray([
+//                west, south,
+//                west, north,
+//                east, north,
+//                east, south,
+//                west, south
+//            ])
+//        });
+
+        polygones_array.push(points_array);
+    }
+
+
+
+        Cesium.viewerEntityMixin(viewer);
+
+        dataSource.loadUrl('np-bcc-subset.geojson').then( function(){
+            var entities = dataSource.entities.entities;
+
+            var color_hash = {};
+
+            console.log(entities.length);
+            for(var i=0; i < entities.length; i++){
+                var entity = entities[i];
+
+                var color = color_hash[entity.properties["region"]];
+
+                if(!color){
+                    color = Cesium.Color.fromRandom({
+                        alpha : 1.0
+                    });
+
+                    color_hash[entity.properties['region'] ] = color;
+                    if(entity.polygon != undefined){
+                        entity.polygon.material = Cesium.ColorMaterialProperty.fromColor(color);
+                    } else {
+                        console.log(entity);
+                    }
+                }
+            }
+
+            scene.camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(100, 65, 10000000.0)
+            });
+
+        });
+
+
+    var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    var ellipsoid = scene.globe.ellipsoid;
+
+    handler.setInputAction(function (movement) {
+        var polygon = scene.drillPick(movement.position)[0];
+        var positions = polygon.primitive.positions;
+
+        console.log(polygon.primitive.min_x, polygon.primitive.min_y);
+
+        var west = polygon.primitive.min_x;
+        var south = polygon.primitive.min_y;
+        var east = polygon.primitive.max_x;
+        var north = polygon.primitive.max_y;
+
+        scene.camera.flyToRectangle({
+            destination : Cesium.Rectangle.fromDegrees(west, south, east, north)
+        });
+
+//        scene.camera.flyTo({
+//            destination : Cesium.Cartesian3.fromDegrees(polygon.primitive.min_x, polygon.primitive.min_y, 1000000.0)
+//        });
+
+
+        console.log(polygon);
+
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+</script>
+</body>
+</html>
