@@ -10,6 +10,7 @@
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <title>Cesium test!</title>
     <script src="Cesium/Build/Cesium/Cesium.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <style>
         @import url(Cesium/Build/Cesium/Widgets/widgets.css);
 
@@ -35,10 +36,23 @@
             overflow: hidden;
             height: 100%;
         }
+
+        .gui {
+            position: absolute;
+            margin-left: 50%;
+        }
+        .gui img{
+            margin-left: -140px;
+        }
+
     </style>
 </head>
 <body>
 <div id="cesiumContainer"></div>
+
+<div class="gui">
+    <img src="images/icons.jpg">
+</div>
 <script>
     var viewer = new Cesium.Viewer('cesiumContainer',
             {
@@ -66,9 +80,20 @@
 //        viewer.dataSources.add(dataSource1);
 //    });
 
-    var dataSource2 = new Cesium.GeoJsonDataSource();
-    dataSource2.loadUrl('data/1.json').then(function () {
-        viewer.dataSources.add(dataSource2);
+    var dataSource = new Cesium.GeoJsonDataSource();
+    dataSource.loadUrl('data/1.json').then(function () {
+        viewer.dataSources.add(dataSource);
+
+        var entities = dataSource.entities.entities;
+        for (var i = 0; i < entities.length; i++) {
+
+            var entity = entities[i];
+            if(entity.polygon){
+                entity.polygon.material = Cesium.ColorMaterialProperty.fromColor(new Cesium.Color(0, 0.9, 0.3, 1));
+            }
+
+        }
+
     });
 
 
@@ -82,7 +107,16 @@
     var ellipsoid = scene.globe.ellipsoid;
 
     handler.setInputAction(function (movement) {
+
+
         var polygon = scene.drillPick(movement.position)[0];
+
+        if(polygon.id){
+            popup_is_open = true;
+            $('.gui').hide().delay(1000).fadeIn();
+            $('.gui').css('margin-top', $(window).height()/2-10+'px')
+        }
+
         var cartographics = Cesium.Ellipsoid.WGS84.cartesianArrayToCartographicArray( polygon.id.polygon.positions.getValue() ) ;
         cartographics = cartographics.filter( function(val){
            return val.height == 0
@@ -97,10 +131,20 @@
 //        });
         scene.camera.flyToRectangle({
             destination: rect
-        })
-
+        });
 
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    var popup_is_open = false;
+    $(document).ready( function(){
+        $('.gui').fadeOut();
+        $(document).on('mousedown', function(){
+           if(popup_is_open){
+               popup_is_open = false;
+               $('.gui').fadeOut();
+           }
+       });
+    });
 
 </script>
 </body>
