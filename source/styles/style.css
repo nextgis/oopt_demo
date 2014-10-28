@@ -1,0 +1,86 @@
+body{
+    background-color: #000000;
+    background-image: url("../images/stars_bg.png");
+}
+
+.left_menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 220px;
+    margin: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: sans-serif;
+    color: #eee;
+}
+
+.left_menu div{
+    padding: 10px;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 13px;
+}
+
+.np{
+    border-left: solid #0088FF 5px;
+}
+
+.zp{
+    border-left: solid lawngreen 5px;
+}
+
+#cesiumContainer {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    height: 100%;
+    width: 100px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    font-family: sans-serif;
+}
+.cesium-viewer-toolbar{
+    display: none;
+}
+
+
+.home_btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.map_selector{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
