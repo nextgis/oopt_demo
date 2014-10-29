@@ -1,0 +1,39 @@
+{"type": "Topology", "objects": {
+    "cities": {
+        "type": "GeometryCollection",
+        "geometries": [
+            {
+                "type": "Point",
+                "coordinates": [37.61325, 55.748],
+                "properties": {
+                    "id": 1,
+                    "name": "Moscow"
+                }
+            },
+            {
+                "type": "Point",
+                "coordinates": [73.35733, 54.91536],
+                "properties": {
+                    "id": 2,
+                    "name": "Omsk"
+                }
+            },
+            {
+                "type": "Point",
+                "coordinates": [104.18426, 52.19257],
+                "properties": {
+                    "id": 3,
+                    "name": "Irkutsk"
+                }
+            },
+            {
+                "type": "Point",
+                "coordinates": [134.85471, 48.5309],
+                "properties": {
+                    "id": 4,
+                    "name": "Khabarovsk"
+                }
+            }
+        ]
+    }
+}, "arcs": []}

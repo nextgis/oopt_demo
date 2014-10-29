@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+    <title></title>
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
+    <link rel="stylesheet" href="Cesium/Build/Cesium/Widgets/widgets.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<div class="left_menu"></div>
+<div id="cesiumContainer"></div>
+
+<div class="home_btn">
+    <img src="images/home.png" alt=""/>
+</div>
+
+<div class="map_selector">
+    <img src="images/map-selector.png" alt=""/>
+    <div class="map_selector_fader"></div>
+</div>
+
+<div class="popup_menu">
+    <div class="info">Info</div>
+    <div class="video">Video</div>
+    <div class="photo">Photo</div>
+    <div class="web">Web</div>
+</div>
+
+<div class="popup">
+    <h2>Area name</h2>
+    <div class="info">
+        <iframe src="info.html" frameborder="0" scrolling="no" ></iframe>
+    </div>
+    <div class="video"><iframe src="//player.vimeo.com/video/18548988" width="800" height="525" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> </div>
+    <div class="photo">
+
+        <div class="photo_container">
+                <img src="images/temp/1.jpg">
+                <img src="images/temp/2.jpg">
+                <img src="images/temp/3.jpg">
+                <img src="images/temp/4.jpg">
+                <img src="images/temp/5.jpg">
+        </div>
+
+        <div class="photos_left"><img src="images/img-left.png"> </div>
+        <div class="photos_right"><img src="images/img-right.png"> </div>
+
+    </div>
+    <div class="web">
+        <iframe src="https://en.wikipedia.org/wiki/Nature_reserve" sandbox="deny-top-navigation" frameborder="0"></iframe>
+    </div>
+</div>
+
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jquery.transit/jquery.transit.js"></script>
+<script src="Cesium/Build/Cesium/Cesium.js"></script>
+<script src="scripts/script.js"></script>
+</body>
+</html>

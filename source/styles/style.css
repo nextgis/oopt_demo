@@ -1,0 +1,216 @@
+body{
+    background-color: #000000;
+    background-image: url("../images/stars_bg.png");
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.left_menu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 220px;
+    margin: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: sans-serif;
+    color: #eee;
+}
+
+.left_menu div{
+    padding: 10px;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 13px;
+}
+
+.np{
+    border-left: solid #0088FF 5px;
+}
+
+.zp{
+    border-left: solid lawngreen 5px;
+}
+
+#cesiumContainer {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    height: 100%;
+    width: 100px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    font-family: sans-serif;
+}
+.cesium-viewer-toolbar{
+    display: none;
+}
+
+
+.home_btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.map_selector{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 177px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.popup_menu{
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    width: 420px;
+    height: 50px;
+    margin-left: -65px;
+}
+
+.popup_menu div{
+    width: 100px;
+    height: 50px;
+    margin-top: 5px;
+    margin-right: 5px;
+    float: left;
+    background-color: #303336;
+    color: #eee;
+    font-size: 14px;
+    line-height: 50px;
+    padding-left: 65px;
+    cursor: pointer;
+}
+
+.popup_menu .info{
+    background-image: url("../images/infobg.png");
+    background-repeat: no-repeat;
+}
+.popup_menu .video{
+    background-image: url("../images/videobg.png");
+    background-repeat: no-repeat;
+}
+.popup_menu .photo{
+    background-image: url("../images/photobg.png");
+    background-repeat: no-repeat;
+}
+.popup_menu .web{
+    background-image: url("../images/webbg.png");
+    background-repeat: no-repeat;
+}
+
+.map_selector_fader{
+    position: absolute;
+    width: 94px;
+    height: 50px;
+    background-color: #ffffff;
+    opacity: 0.5;
+    top: 0px;
+    left: 93px;
+}
+
+
+.popup{
+    position: absolute;
+    top: 2%;
+    left: 27%;
+    width: 700px;
+    height: 425px;
+    background-color: #ffffff;
+    border: solid 3px #333;
+    padding: 50px;
+    overflow: hidden;
+}
+
+.popup .info{
+    position: relative;
+}
+
+.popup .info iframe{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 690px;
+    height: 360px;
+    overflow: hidden;
+}
+
+.popup .web iframe{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 800px;
+    height: 525px;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.popup .video iframe{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 800px;
+    height: 525px;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.popup .photo img{
+    float: left;
+}
+
+.popup .photo{
+    /*margin-top: 80px;*/
+}
+
+.photo_container{
+    width: 2500px;
+    height: 300px;
+}
+
+.photos_left{
+    position: absolute;
+    top: 118px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.photos_right{
+    position: absolute;
+    top: 118px;
+    left: 750px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
