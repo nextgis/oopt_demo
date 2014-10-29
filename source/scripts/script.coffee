@@ -13,9 +13,55 @@ viewer = new Cesium.Viewer('cesiumContainer',
     }
 )
 
+#   MAPS TILE
+osm = new Cesium.OpenStreetMapImageryProvider({
+    maximumLevel : 500,
+});
+osm_map = viewer.scene.imageryLayers.addImageryProvider( osm )
+
+bing = new Cesium.BingMapsImageryProvider({
+    url : 'http://dev.virtualearth.net',
+    mapStyle : Cesium.BingMapsStyle.AERIAL,
+    tilingScheme: new Cesium.GeographicTilingScheme()
+});
+bing_map = viewer.scene.imageryLayers.addImageryProvider( bing )
+
+
+
+#   NORTH POLE CIRCLE
+circleGeometry = new Cesium.CircleGeometry({
+    center : Cesium.Cartesian3.fromDegrees(90.0, 90.0),
+    radius : 560000.0,
+    vertexFormat : Cesium.PerInstanceColorAppearance.VERTEX_FORMAT
+})
+
+
+
+redCircleInstance = new Cesium.GeometryInstance({
+    geometry : circleGeometry,
+    attributes : {
+        color : Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(0.71, 0.816, 0.816, 1))
+    }
+})
+
+pole_primitive = new Cesium.Primitive({
+    geometryInstances: [redCircleInstance],
+    appearance: new Cesium.PerInstanceColorAppearance({
+        closed: true
+    })
+})
+pole_primitive.show = false
+viewer.scene.primitives.add(pole_primitive)
+
+
+
+
+
 scene = viewer.scene;
 primitives = scene.primitives;
 oopt = {}
+
+selected_polygon_name = ''
 
 #   SCENE RESIZE
 
@@ -90,13 +136,21 @@ load_zp = ()->
 build_pups = ()->
     billboards = scene.primitives.add(new Cesium.BillboardCollection())
 
-    for entity_key of oopt
+    keys = []
+    for key of oopt
+        keys.push(key)
+    keys = keys.sort()
+
+
+    for entity_key in keys
 
         $(".left_menu").append('<div>')
-        $(".left_menu div:last-child").text(entity_key).on('click', ()->
+        $(".left_menu div:last-child").text(entity_key).on('click', (e)->
             text = $(this).text()
             rect = get_oopt_rect(text)
             scene.camera.flyToRectangle({destination: rect})
+            setTimeout(open_menu, 100)
+            e.stopPropagation()
 
         )
 
@@ -180,9 +234,11 @@ handler.setInputAction( ( (movement)->
         polygon_name = polygon.id
     else
         polygon_name = polygon.id.properties.NAME_EN
+    selected_polygon_name = polygon_name
 
     rect = get_oopt_rect(polygon_name)
     scene.camera.flyToRectangle({destination: rect})
+    setTimeout(open_menu, 100)
 
 ), Cesium.ScreenSpaceEventType.LEFT_CLICK )
 
@@ -198,8 +254,11 @@ get_oopt_rect = (name)->
     cartographics = cartographics.filter( (val) ->
         return val.height == 0
     )
+    rect = Cesium.Rectangle.fromCartographicArray(cartographics)
 
-    return Cesium.Rectangle.fromCartographicArray(cartographics);
+    rect.south -= Math.abs(rect.south-rect.north)*0.6
+    rect.north += Math.abs(rect.south-rect.north)*0.1
+    return rect
 
 
 cities = [
@@ -233,25 +292,91 @@ $('.home_btn').on('click', ()->
 $('.map_selector').on('click', (e)->
     if e.offsetX > 177/2
 #        bing
-        bing = new Cesium.BingMapsImageryProvider({
-            url : 'http://dev.virtualearth.net',
-            mapStyle : Cesium.BingMapsStyle.AERIAL
-        });
-        viewer.scene.imageryLayers.addImageryProvider( bing )
+        bing_map.alpha = 1
+        osm_map.alpha = 0
+        pole_primitive.show = false
+        $('.map_selector_fader').transition({ x: 0 }, 100, 'ease');
     else
 #        osm
-        osm = new Cesium.OpenStreetMapImageryProvider({
-            url : 'http://a.tile.openstreetmap.org/'
-        });
-        viewer.scene.imageryLayers.addImageryProvider( osm )
-
+        osm_map.alpha = 1
+        bing_map.alpha = 0
+        pole_primitive.show = true
+        $('.map_selector_fader').transition({ x: -93 }, 100, 'ease');
 )
 
 
 
+#   MENU CLICK HANDLERS
+
+$('.popup_menu .info').on('click', (e)->
+    e.stopPropagation()
+    open_info_popup()
+)
+
+$('.popup_menu .video').on('click', (e)->
+    e.stopPropagation()
+    open_video_popup()
+)
+
+$('.popup_menu .photo').on('click', (e)->
+    e.stopPropagation()
+    open_photo_popup()
+)
+
+$('.popup_menu .web').on('click', (e)->
+    e.stopPropagation()
+    open_web_popup()
+)
+
+open_menu = ()->
+    $('.popup_menu').fadeIn(3000)
 
 
+close_menu = ()->
+    $('.popup_menu').fadeOut()
+    $('.popup').fadeOut()
 
+$(document).on('click', close_menu)
+
+$('.popup_menu').hide()
+$('.popup').hide()
+
+open_info_popup = ()->
+    $('.popup').fadeIn()
+    $('.popup>div').hide()
+    $('.popup .info').show()
+
+open_video_popup = ()->
+    $('.popup').fadeIn()
+    $('.popup>div').hide()
+    $('.popup .video').show()
+
+open_photo_popup = ()->
+    $('.popup').fadeIn()
+    $('.popup>div').hide()
+    $('.popup .photo').show()
+
+open_web_popup = ()->
+    $('.popup').fadeIn()
+    $('.popup>div').hide()
+    $('.popup .web').show()
+
+
+showed_image = 0
+
+$('.photos_left').on('click', (e)->
+    e.stopPropagation()
+    if showed_image!=0
+        showed_image--
+        $('.photo_container').transition({ x: -500*showed_image }, 300, 'ease');
+)
+
+$('.photos_right').on('click', (e)->
+    e.stopPropagation()
+    if showed_image!=4
+        showed_image++
+        $('.photo_container').transition({ x: -500*showed_image }, 300, 'ease');
+)
 
 
 
