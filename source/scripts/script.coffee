@@ -9,22 +9,29 @@ viewer = new Cesium.Viewer('cesiumContainer',
         geocoder: false,
         animation: false,
         scene3DOnly: true,
-        fullscreenButton: false
+        fullscreenButton: false,
+        imageryProvider: new Cesium.BingMapsImageryProvider({
+            url : 'http://dev.virtualearth.net',
+            key : 'Ail9PAst_7-T0BfqYAZjK4fVngfHJ3Fjg_ckK6eX8ro_xXwH2HcYUr_cJVDanhTV',
+            maximumLevel : 500,
+            mapStyle : Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+        })
     }
 )
 
 #   MAPS TILE
-osm = new Cesium.OpenStreetMapImageryProvider({
-    maximumLevel : 500,
-});
-osm_map = viewer.scene.imageryLayers.addImageryProvider( osm )
-
-bing = new Cesium.BingMapsImageryProvider({
-    url : 'http://dev.virtualearth.net',
-    mapStyle : Cesium.BingMapsStyle.AERIAL,
-    tilingScheme: new Cesium.GeographicTilingScheme()
-});
-bing_map = viewer.scene.imageryLayers.addImageryProvider( bing )
+#osm = new Cesium.OpenStreetMapImageryProvider({
+#    maximumLevel : 500,
+#});
+##osm_map = viewer.scene.imageryLayers.addImageryProvider( osm )
+#
+#bing = new Cesium.BingMapsImageryProvider({
+#    url : 'http://dev.virtualearth.net',
+#    key : 'Ail9PAst_7-T0BfqYAZjK4fVngfHJ3Fjg_ckK6eX8ro_xXwH2HcYUr_cJVDanhTV',
+#    maximumLevel : 500,
+#    mapStyle : Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+#});
+#bing_map = viewer.scene.imageryLayers.addImageryProvider( bing )
 
 
 
@@ -60,6 +67,8 @@ viewer.scene.primitives.add(pole_primitive)
 scene = viewer.scene;
 primitives = scene.primitives;
 oopt = {}
+
+popups_data = []
 
 selected_polygon_name = ''
 
@@ -106,9 +115,10 @@ load_np = ()->
                 entity.polygon.material = mat_property;
                 entity.polygon.outline = new Cesium.ConstantProperty(false);
                 entity.isNP = true
-                if !oopt[entity.properties.NAME_EN]
-                    oopt[entity.properties.NAME_EN] = []
-                oopt[entity.properties.NAME_EN].push(entity)
+                if !oopt[entity.properties.Name_en]
+                    oopt[entity.properties.Name_en] = []
+                oopt[entity.properties.Name_en].push(entity)
+                oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
 
         load_zp()
     )
@@ -126,9 +136,10 @@ load_zp = ()->
                 entity.polygon.material = mat_property
                 entity.polygon.outline = new Cesium.ConstantProperty(false)
                 entity.isNP = false
-                if !oopt[entity.properties.NAME_EN]
-                    oopt[entity.properties.NAME_EN] = []
-                oopt[entity.properties.NAME_EN].push(entity)
+                if !oopt[entity.properties.Name_en]
+                    oopt[entity.properties.Name_en] = []
+                oopt[entity.properties.Name_en].push(entity)
+                oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
 
         build_pups()
     )
@@ -146,9 +157,11 @@ build_pups = ()->
 
         $(".left_menu").append('<div>')
         $(".left_menu div:last-child").text(entity_key).on('click', (e)->
+            $('.popup').hide()
             text = $(this).text()
             rect = get_oopt_rect(text)
             scene.camera.flyToRectangle({destination: rect})
+            selected_polygon_name = text
             setTimeout(open_menu, 100)
             e.stopPropagation()
 
@@ -176,7 +189,7 @@ build_pups = ()->
             position : Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
             id: entity_key,
             color : color,
-            translucencyByDistance : new Cesium.NearFarScalar(1200000, 0, 1300000, 1)
+            translucencyByDistance : new Cesium.NearFarScalar(1500000, 0, 1600000, 1)
         })
 
     load_borders()
@@ -199,7 +212,7 @@ load_borders = ()->
                         vertexFormat : Cesium.PolylineColorAppearance.VERTEX_FORMAT
                     }),
                     attributes: {
-                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(0.8, 0.8, 0.8, 1))
+                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(0, 0.3, 0.9, 0.6))
                     }
                 }),
                 appearance : new Cesium.PolylineColorAppearance()
@@ -221,6 +234,14 @@ load_cities = ()->
             font      : '12px Helvetica'
         });
     scene.primitives.add(labels);
+    load_popups_data()
+
+
+load_popups_data = ()->
+    $.getJSON('data/data.json', (data)->
+        popups_data =  data.data
+    )
+
 
 
 
@@ -229,15 +250,17 @@ handler = new Cesium.ScreenSpaceEventHandler(scene.canvas)
 ellipsoid = scene.globe.ellipsoid
 
 handler.setInputAction( ( (movement)->
+    if selected_polygon_name != "" then close_menu()
     polygon = scene.drillPick(movement.position)[0]
     if (typeof polygon.id) == "string"
         polygon_name = polygon.id
     else
-        polygon_name = polygon.id.properties.NAME_EN
+        polygon_name = polygon.id.properties.Name_en
     selected_polygon_name = polygon_name
 
     rect = get_oopt_rect(polygon_name)
     scene.camera.flyToRectangle({destination: rect})
+    selected_polygon_name = polygon_name
     setTimeout(open_menu, 100)
 
 ), Cesium.ScreenSpaceEventType.LEFT_CLICK )
@@ -302,6 +325,8 @@ $('.map_selector').on('click', (e)->
         bing_map.alpha = 0
         pole_primitive.show = true
         $('.map_selector_fader').transition({ x: -93 }, 100, 'ease');
+
+    e.stopPropagation()
 )
 
 
@@ -328,68 +353,168 @@ $('.popup_menu .web').on('click', (e)->
     open_web_popup()
 )
 
-open_menu = ()->
-    $('.popup_menu').fadeIn(3000)
 
+
+
+
+#
+#       O P E N   M E N U
+#
+
+
+open_menu = ()->
+
+    selected_id = oopt[selected_polygon_name]._id
+    prepare_popup(selected_id)
+
+    $('.popup_menu').stop()
+    $('.popup_menu').animate({bottom:"15%"}, 2000)
+    $('.menu_op_name').text(selected_polygon_name)
+
+    for element in oopt[selected_polygon_name]
+        element.polygon.outline  = new Cesium.ConstantProperty(true)
+        element.polygon.outlineColor  = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(1, 1, 1, 1) )
+
+#   Подсветить в левом меню
+
+    $('.left_menu div').each(()->
+        $(this).removeClass('selected_item')
+        if( $(this).text() == selected_polygon_name )
+            $(this).addClass('selected_item')
+
+            $('.left_menu').scrollTop($('.left_menu').scrollTop() + $(this).position().top - 300);
+    )
+    $('.left_menu').animate({
+          scrollTop: selected_ellement_top_gap-200
+      });
 
 close_menu = ()->
-    $('.popup_menu').fadeOut()
-    $('.popup').fadeOut()
+    $('.left_menu div').removeClass('selected_item')
+    $('.popup_menu').stop()
+    $('.popup_menu').animate({bottom:"-30%"}, 500)
+    $('.popup').hide()
+
+    for element in oopt[selected_polygon_name]
+        element.polygon.outline  = new Cesium.ConstantProperty(false)
+        element.polygon.outlineColor  = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(1, 1, 1, 0) )
+
 
 $(document).on('click', close_menu)
-
-$('.popup_menu').hide()
-$('.popup').hide()
 
 open_info_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
+    $('.popup h2').text(selected_polygon_name)
     $('.popup .info').show()
 
 open_video_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
+    $('.popup h2').text(selected_polygon_name)
     $('.popup .video').show()
+    $('video')[0].currentTime = 0
+    $('video')[0].play()
 
 open_photo_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
     $('.popup .photo').show()
+    $('.popup h2').text(selected_polygon_name)
 
 open_web_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
+    $('.popup h2').text(selected_polygon_name)
     $('.popup .web').show()
 
+$('.close_popup').on('click', (e)->
+    $('.popup').hide()
+    e.stopPropagation()
+)
 
-showed_image = 0
+$('.menu_op_name').on('click', (e)->
+    e.stopPropagation()
+)
+
+
+#    PHOTO GALLERY
+showed_image = 1
+num_images = 0
 
 $('.photos_left').on('click', (e)->
     e.stopPropagation()
-    if showed_image!=0
-        showed_image--
-        $('.photo_container').transition({ x: -500*showed_image }, 300, 'ease');
+    showed_image--
+    if showed_image <= 0 then showed_image = num_images
+    $('.photo_container img').hide()
+    $('.photo_container img').eq(showed_image).fadeIn()
 )
 
 $('.photos_right').on('click', (e)->
     e.stopPropagation()
-    if showed_image!=4
-        showed_image++
-        $('.photo_container').transition({ x: -500*showed_image }, 300, 'ease');
+    showed_image++
+    if showed_image > num_images then showed_image = 1
+    $('.photo_container img').hide()
+    $('.photo_container img').eq(showed_image).fadeIn()
 )
 
+$('.popup').on('click', (e)->
+    e.stopPropagation()
+)
+
+# PREPARE POPUP
+
+prepare_popup = (_id)->
+    current_popup_data = {}
+    for dta in popups_data
+        if dta.id == _id then current_popup_data = dta
+
+#    ВОТ ТУТ ЗАКОМЕНИТЬ
+    current_popup_data = popups_data[0]
+
+    build_gallery(current_popup_data.images, current_popup_data.id)
+    build_info(current_popup_data.id)
+    build_video(current_popup_data.id)
+    build_web(current_popup_data.url)
 
 
 
+build_gallery = (_num_images, folder_name)->
+    $('.photo_container img').remove()
+
+    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
+    for i in [1.._num_images]
+        $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+i+'.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/1.jpg') )
+    $('.photo_container img').fadeOut(50)
+    $('.photo_container img').eq(showed_image).fadeIn(50)
+    num_images = _num_images
+
+build_info = (_id)->
+    $('.info iframe').attr('src', 'data/'+_id+'/index.html')
+    $('.info iframe').load( ()->
+        head = $(".info iframe").contents().find("head")
+        head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
+    )
 
 
+build_web = (url)->
+    $('.web iframe').attr('src', url)
 
 
+build_video = (_id)->
+    $('video').attr('src', 'data/'+_id+'/video/1.mp4')
 
 
+date = new Date()
+$(document).on('mouseup', ()->
+    date = new Date()
+)
+check_time = ()->
+    console.log(new Date() - date)
+    if ( (new Date()) - date ) > (5 * 60 * 1000)
+        location.reload()
 
-
-
+setInterval(check_time, 1000)
 
 
 

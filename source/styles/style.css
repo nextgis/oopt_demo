@@ -9,6 +9,15 @@ body{
     -ms-user-select: none;
     user-select: none;
 
+    overflow: hidden;
+
+}
+
+h2{
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 35px;
+    margin-top: -20px;
 }
 
 .left_menu{
@@ -16,12 +25,35 @@ body{
     top: 0;
     left: 0;
     height: 100%;
-    width: 220px;
+    width: 200px;
     margin: 0;
     overflow-y: scroll;
     overflow-x: hidden;
     font-family: sans-serif;
     color: #eee;
+}
+
+/* Let's get this party started */
+.left_menu::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.left_menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(90, 90, 90, 0.7);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+.left_menu::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgb(24, 22, 24);
+    -webkit-box-shadow: inset 0 0 6px rgb(40, 40, 40);
+}
+.left_menu::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(254, 255, 253, 0.40);
 }
 
 .left_menu div{
@@ -70,6 +102,7 @@ body{
     width: 177px;
     height: 50px;
     overflow: hidden;
+    display: none;
 }
 
 .popup_menu{
@@ -133,6 +166,10 @@ body{
     border: solid 3px #333;
     padding: 50px;
     overflow: hidden;
+
+    -webkit-box-shadow: 2px 2px 25px 5px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    2px 2px 25px 5px rgba(50, 50, 50, 1);
+    box-shadow:         2px 2px 25px 5px rgba(50, 50, 50, 1);
 }
 
 .popup .info{
@@ -177,22 +214,60 @@ body{
 }
 
 .photo_container{
-    width: 2500px;
-    height: 300px;
+    width: 700px;
+    height: 380px;
+    /*background-color: #333333;*/
+    position: relative;
+}
+
+.photo_container img{
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+    position: absolute;
+    left:0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+video{
+    width: 700px;
+    height: 380px;
 }
 
 .photos_left{
     position: absolute;
-    top: 118px;
+    top: 150px;
     left: 0px;
     cursor: pointer;
 }
 
 .photos_right{
     position: absolute;
-    top: 118px;
+    top: 150px;
     left: 750px;
     cursor: pointer;
+}
+
+.close_popup{
+    position: absolute;
+    top: 0px;
+    left: 755px;
+    cursor: pointer;
+}
+
+.menu_op_name{
+    position: absolute;
+    width: 320px !important;
+    top: -55px;
+    padding-left: 15px !important;
+    font-size: 20px !important;
+}
+
+.selected_item{
+    background-color: #ffffff !important;
+    color: #000000 !important;
 }
 
 
