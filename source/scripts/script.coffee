@@ -140,6 +140,7 @@ load_zp = ()->
                     oopt[entity.properties.Name_en] = []
                 oopt[entity.properties.Name_en].push(entity)
                 oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
+                console.log entity.properties.ids_ID
 
         build_pups()
     )
@@ -224,16 +225,16 @@ load_borders = ()->
 
 load_cities = ()->
 
-    labels = new Cesium.LabelCollection()
-    for city in cities
-        coord = city['coordinates']
-        name = city['name']
-        labels.add({
-            position : Cesium.Cartesian3.fromDegrees(coord[0], coord[1]),
-            text     : "◉ "+name,
-            font      : '12px Helvetica'
-        });
-    scene.primitives.add(labels);
+#    labels = new Cesium.LabelCollection()
+#    for city in cities
+#        coord = city['coordinates']
+#        name = city['name']
+#        labels.add({
+#            position : Cesium.Cartesian3.fromDegrees(coord[0], coord[1]),
+#            text     : "◉ "+name,
+#            font      : '12px Helvetica'
+#        });
+#    scene.primitives.add(labels);
     load_popups_data()
 
 
@@ -338,14 +339,16 @@ $('.popup_menu .info').on('click', (e)->
     open_info_popup()
 )
 
+is_video_enable = true
 $('.popup_menu .video').on('click', (e)->
     e.stopPropagation()
-    open_video_popup()
+    if is_video_enable then open_video_popup()
 )
 
+is_photo_enable = true
 $('.popup_menu .photo').on('click', (e)->
     e.stopPropagation()
-    open_photo_popup()
+    if is_photo_enable then open_photo_popup()
 )
 
 $('.popup_menu .web').on('click', (e)->
@@ -369,7 +372,7 @@ open_menu = ()->
 
     $('.popup_menu').stop()
     $('.popup_menu').animate({bottom:"15%"}, 2000)
-    $('.menu_op_name').text(selected_polygon_name)
+#    $('.menu_op_name').text(selected_polygon_name)
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(true)
@@ -404,13 +407,11 @@ $(document).on('click', close_menu)
 open_info_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
-    $('.popup h2').text(selected_polygon_name)
     $('.popup .info').show()
 
 open_video_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
-    $('.popup h2').text(selected_polygon_name)
     $('.popup .video').show()
     $('video')[0].currentTime = 0
     $('video')[0].play()
@@ -419,12 +420,10 @@ open_photo_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
     $('.popup .photo').show()
-    $('.popup h2').text(selected_polygon_name)
 
 open_web_popup = ()->
     $('.popup').fadeIn()
     $('.popup>div').hide()
-    $('.popup h2').text(selected_polygon_name)
     $('.popup .web').show()
 
 $('.close_popup').on('click', (e)->
@@ -462,14 +461,18 @@ $('.popup').on('click', (e)->
 )
 
 # PREPARE POPUP
-
 prepare_popup = (_id)->
     current_popup_data = {}
     for dta in popups_data
         if dta.id == _id then current_popup_data = dta
 
 #    ВОТ ТУТ ЗАКОМЕНИТЬ
-    current_popup_data = popups_data[0]
+#    current_popup_data = popups_data[0]
+
+
+    second_name =  if (oopt[selected_polygon_name][0].isNP) then "National Park" else "Nature Reserve"
+    $('.popup h2').text(selected_polygon_name+" "+second_name)
+    $('.menu_op_name').text(selected_polygon_name).append( $('<div class="small-header"></div>').text(second_name) )
 
     build_gallery(current_popup_data.images, current_popup_data.id)
     build_info(current_popup_data.id)
@@ -480,6 +483,15 @@ prepare_popup = (_id)->
 
 build_gallery = (_num_images, folder_name)->
     $('.photo_container img').remove()
+
+    is_photo_enable = true
+    $('.popup_menu .photo').css('opacity', 1)
+    $('.popup_menu .photo').text('Photo')
+
+    if _num_images == 0
+        is_photo_enable = false
+        $('.popup_menu .photo').css('opacity', 0.5)
+        $('.popup_menu .photo').text('No Photo')
 
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
     for i in [1.._num_images]
@@ -502,15 +514,40 @@ build_web = (url)->
 
 
 build_video = (_id)->
-    $('video').attr('src', 'data/'+_id+'/video/1.mp4')
+    is_video_enable = true
+
+    $('.popup_menu .video').css('opacity', 1)
+    $('.popup_menu .video').text('Video')
+    video_parent = $('video').parent()
+    $('video').remove()
+    video_parent.append('<video></video>')
+    $('video').attr('src', 'data/'+_id+'/video/1.mov')
+    $('video').attr('src-mp4', 'data/'+_id+'/video/1.mp4')
+
+    $('video').attr('preload','auto')
+    $('video').attr('controls','true')
+    $('video').attr('autoplay','true')
+
+
+    $("video").on("error", ()->
+      if $('video').attr('src') == $('video').attr('src-mp4')
+          is_video_enable = false
+          $('.popup_menu .video').css('opacity', 0.5)
+          $('.popup_menu .video').text('No Video')
+      else
+          $('video').attr('src', $('video').attr('src-mp4'))
+    )
 
 
 date = new Date()
+is_globus_moved = false
+
 $(document).on('mouseup', ()->
     date = new Date()
+    is_globus_moved = true
 )
 check_time = ()->
-    console.log(new Date() - date)
+    if !is_globus_moved then return
     if ( (new Date()) - date ) > (5 * 60 * 1000)
         location.reload()
 
