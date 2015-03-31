@@ -161,7 +161,7 @@ build_pups = ()->
             $('.popup').hide()
             text = $(this).text()
             rect = get_oopt_rect(text)
-            scene.camera.flyToRectangle({destination: rect})
+            scene.camera.flyTo({destination: rect})
             selected_polygon_name = text
             setTimeout(open_menu, 100)
             e.stopPropagation()
@@ -260,7 +260,7 @@ handler.setInputAction( ( (movement)->
     selected_polygon_name = polygon_name
 
     rect = get_oopt_rect(polygon_name)
-    scene.camera.flyToRectangle({destination: rect})
+    scene.camera.flyTo({destination: rect})
     selected_polygon_name = polygon_name
     setTimeout(open_menu, 100)
 

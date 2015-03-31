@@ -146,7 +146,7 @@
         $('.popup').hide();
         text = $(this).text();
         rect = get_oopt_rect(text);
-        scene.camera.flyToRectangle({
+        scene.camera.flyTo({
           destination: rect
         });
         selected_polygon_name = text;
@@ -233,7 +233,7 @@
     }
     selected_polygon_name = polygon_name;
     rect = get_oopt_rect(polygon_name);
-    scene.camera.flyToRectangle({
+    scene.camera.flyTo({
       destination: rect
     });
     selected_polygon_name = polygon_name;
