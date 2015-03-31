@@ -85,7 +85,7 @@
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
-      mat_property = Cesium.ColorMaterialProperty.fromColor(new Cesium.Color(0, 0.3, 0.9, 0.6));
+      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color(0, 0.3, 0.9, 0.6));
       for (j = 0, len = entities.length; j < len; j++) {
         entity = entities[j];
         if (entity.polygon) {
@@ -112,7 +112,7 @@
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
-      mat_property = Cesium.ColorMaterialProperty.fromColor(new Cesium.Color(0, 0.9, 0.3, 0.6));
+      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color(0, 0.9, 0.3, 0.6));
       for (j = 0, len = entities.length; j < len; j++) {
         entity = entities[j];
         if (entity.polygon) {
@@ -340,7 +340,7 @@
     for (j = 0, len = ref.length; j < len; j++) {
       element = ref[j];
       element.polygon.outline = new Cesium.ConstantProperty(true);
-      element.polygon.outlineColor = Cesium.ColorMaterialProperty.fromColor(new Cesium.Color(1, 1, 1, 1));
+      element.polygon.outlineColor = new Cesium.ColorMaterialProperty(new Cesium.Color(1, 1, 1, 1));
     }
     $('.left_menu div').each(function() {
       $(this).removeClass('selected_item');
@@ -367,7 +367,7 @@
     for (j = 0, len = ref.length; j < len; j++) {
       element = ref[j];
       element.polygon.outline = new Cesium.ConstantProperty(false);
-      results.push(element.polygon.outlineColor = Cesium.ColorMaterialProperty.fromColor(new Cesium.Color(1, 1, 1, 0)));
+      results.push(element.polygon.outlineColor = new Cesium.ColorMaterialProperty(new Cesium.Color(1, 1, 1, 0)));
     }
     return results;
   };

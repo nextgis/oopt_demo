@@ -109,7 +109,7 @@ load_np = ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(0, 0.3, 0.9, 0.6) );
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color(0, 0.3, 0.9, 0.6) );
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property;
@@ -130,7 +130,7 @@ load_zp = ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(0, 0.9, 0.3, 0.6) )
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color(0, 0.9, 0.3, 0.6) )
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property
@@ -376,7 +376,7 @@ open_menu = ()->
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(true)
-        element.polygon.outlineColor  = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(1, 1, 1, 1) )
+        element.polygon.outlineColor  = new Cesium.ColorMaterialProperty( new Cesium.Color(1, 1, 1, 1) )
 
 #   Подсветить в левом меню
 
@@ -399,7 +399,7 @@ close_menu = ()->
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(false)
-        element.polygon.outlineColor  = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(1, 1, 1, 0) )
+        element.polygon.outlineColor  = new Cesium.ColorMaterialProperty( new Cesium.Color(1, 1, 1, 0) )
 
 
 $(document).on('click', close_menu)
