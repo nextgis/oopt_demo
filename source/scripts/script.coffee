@@ -105,10 +105,10 @@ scene.camera.flyTo({
 #    DATA LOADER
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.loadUrl("ndata/np-bcc.topojson").then( ()->
+    dataSource.load("ndata/np-bcc.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
-        entities = dataSource.entities.entities
+        entities = dataSource.entities.values
         mat_property = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(0, 0.3, 0.9, 0.6) );
         for entity in entities
             if entity.polygon
@@ -126,10 +126,10 @@ load_np()
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.loadUrl("ndata/zp-bcc.topojson").then( ()->
+    dataSource.load("ndata/zp-bcc.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
-        entities = dataSource.entities.entities
+        entities = dataSource.entities.values
         mat_property = Cesium.ColorMaterialProperty.fromColor( new Cesium.Color(0, 0.9, 0.3, 0.6) )
         for entity in entities
             if entity.polygon
@@ -140,7 +140,7 @@ load_zp = ()->
                     oopt[entity.properties.Name_en] = []
                 oopt[entity.properties.Name_en].push(entity)
                 oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
-                console.log entity.properties.ids_ID
+                # console.log entity.properties.ids_ID
 
         build_pups()
     )
@@ -198,12 +198,12 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.loadUrl('ndata/russia-bnd.topojson').then( ()->
+    border_source.load('ndata/russia-bnd.topojson').then( ()->
 
-        b_entities = border_source.entities.entities;
+        b_entities = border_source.entities.values;
 
         for b_entitiy in b_entities
-            positions =  b_entitiy.polygon.positions.getValue()
+            positions =  b_entitiy.polygon.hierarchy.getValue().positions
 
             primitives.add(new Cesium.Primitive({
                 geometryInstances : new Cesium.GeometryInstance({
@@ -272,7 +272,7 @@ get_oopt_rect = (name)->
     _points = [];
 
     for polygon in oopt[name]
-        _points = _points.concat( polygon.polygon.positions.getValue() )
+        _points = _points.concat( polygon.polygon.hierarchy.getValue().positions )
 
     cartographics = Cesium.Ellipsoid.WGS84.cartesianArrayToCartographicArray( _points );
     cartographics = cartographics.filter( (val) ->
