@@ -344,15 +344,12 @@
       element.polygon.outline = new Cesium.ConstantProperty(true);
       element.polygon.outlineColor = new Cesium.ColorMaterialProperty(new Cesium.Color(1, 1, 1, 1));
     }
-    $('.left_menu div').each(function() {
+    return $('.left_menu div').each(function() {
       $(this).removeClass('selected_item');
       if ($(this).text() === selected_polygon_name) {
         $(this).addClass('selected_item');
         return $('.left_menu').scrollTop($('.left_menu').scrollTop() + $(this).position().top - 300);
       }
-    });
-    return $('.left_menu').animate({
-      scrollTop: selected_ellement_top_gap - 200
     });
   };
 
