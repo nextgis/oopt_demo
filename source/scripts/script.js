@@ -226,18 +226,20 @@
       close_menu();
     }
     polygon = scene.drillPick(movement.position)[0];
-    if ((typeof polygon.id) === "string") {
-      polygon_name = polygon.id;
-    } else {
-      polygon_name = polygon.id.properties.Name_en;
+    if (polygon) {
+      if ((typeof polygon.id) === "string") {
+        polygon_name = polygon.id;
+      } else {
+        polygon_name = polygon.id.properties.Name_en;
+      }
+      selected_polygon_name = polygon_name;
+      rect = get_oopt_rect(polygon_name);
+      scene.camera.flyTo({
+        destination: rect
+      });
+      selected_polygon_name = polygon_name;
+      return setTimeout(open_menu, 100);
     }
-    selected_polygon_name = polygon_name;
-    rect = get_oopt_rect(polygon_name);
-    scene.camera.flyTo({
-      destination: rect
-    });
-    selected_polygon_name = polygon_name;
-    return setTimeout(open_menu, 100);
   }), Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
   get_oopt_rect = function(name) {
@@ -372,7 +374,11 @@
     return results;
   };
 
-  $(document).on('click', close_menu);
+  $(document).on('click', function() {
+    if (selected_polygon_name !== "") {
+      return close_menu();
+    }
+  });
 
   open_info_popup = function() {
     $('.popup').fadeIn();

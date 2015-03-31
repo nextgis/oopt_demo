@@ -253,16 +253,17 @@ ellipsoid = scene.globe.ellipsoid
 handler.setInputAction( ( (movement)->
     if selected_polygon_name != "" then close_menu()
     polygon = scene.drillPick(movement.position)[0]
-    if (typeof polygon.id) == "string"
-        polygon_name = polygon.id
-    else
-        polygon_name = polygon.id.properties.Name_en
-    selected_polygon_name = polygon_name
+    if polygon
+        if (typeof polygon.id) == "string"
+            polygon_name = polygon.id
+        else
+            polygon_name = polygon.id.properties.Name_en
+        selected_polygon_name = polygon_name
 
-    rect = get_oopt_rect(polygon_name)
-    scene.camera.flyTo({destination: rect})
-    selected_polygon_name = polygon_name
-    setTimeout(open_menu, 100)
+        rect = get_oopt_rect(polygon_name)
+        scene.camera.flyTo({destination: rect})
+        selected_polygon_name = polygon_name
+        setTimeout(open_menu, 100)
 
 ), Cesium.ScreenSpaceEventType.LEFT_CLICK )
 
@@ -402,7 +403,9 @@ close_menu = ()->
         element.polygon.outlineColor  = new Cesium.ColorMaterialProperty( new Cesium.Color(1, 1, 1, 0) )
 
 
-$(document).on('click', close_menu)
+$(document).on('click', ()->
+    if selected_polygon_name != ""
+        close_menu())
 
 open_info_popup = ()->
     $('.popup').fadeIn()
