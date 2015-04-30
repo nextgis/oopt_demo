@@ -287,15 +287,9 @@ video{
 
 .lang_selector{
     position: absolute;
-    bottom: 10px;
+    top: 70px;
     right: 10px;
 }
-
-.lang_selector a{
-    color: #ddd;
-}
-
-
 
 
 
