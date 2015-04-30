@@ -61,6 +61,15 @@
 
   $(window).on('resize', resize);
 
+  $('.fullscreen_btn').click(function() {
+    if ($.fullscreen.isFullScreen()) {
+      $.fullscreen.exit();
+    } else {
+      $('body').fullscreen();
+    }
+    return false;
+  });
+
   viewer.homeButton.viewModel.command.beforeExecute.addEventListener(function(commandInfo) {
     fly_to_Russia();
     return commandInfo.cancel = true;

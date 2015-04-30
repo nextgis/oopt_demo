@@ -295,6 +295,13 @@ video{
     margin-top: 1em;
 }
 
+.fullscreen_btn{
+    position: absolute;
+    top: 130px;
+    right: 10px;
+    cursor: pointer;
+}
+
 
 
 

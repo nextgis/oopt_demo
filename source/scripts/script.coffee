@@ -80,6 +80,15 @@ resize = ()->
 resize()
 $(window).on('resize', resize)
 
+#   FULLSCREEN
+$('.fullscreen_btn').click(()->
+    if $.fullscreen.isFullScreen()
+        $.fullscreen.exit()
+    else
+        $('body').fullscreen();
+    return false
+);
+
 
 
 #   HOME BUTTON OVERRIDE
