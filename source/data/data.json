@@ -3,7 +3,14 @@
         {
             "id": "1008",
             "images": 5,
-            "url": "http://www.bashzapovednik.ru"
+            "url": "http://www.bashzapovednik.ru",
+            "captions": [
+                {"en": "Hedgehog", "ru": "Ёж"},
+                {"en": "Bird", "ru": "Птица"},
+                {"en": "Snake", "ru": "Змея"},
+                {"en": "Elk", "ru": "Лось"},
+                {"en": "Squirrel", "ru": "Белка"}
+            ]
         },
         {
             "id": "1009",

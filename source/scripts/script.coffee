@@ -449,6 +449,8 @@ $('.photos_left').on('click', (e)->
     if showed_image <= 0 then showed_image = num_images
     $('.photo_container img').hide()
     $('.photo_container img').eq(showed_image).fadeIn()
+    $('.photo_caption span').hide()
+    $('.photo_caption span').eq(showed_image).fadeIn()
 )
 
 $('.photos_right').on('click', (e)->
@@ -457,6 +459,8 @@ $('.photos_right').on('click', (e)->
     if showed_image > num_images then showed_image = 1
     $('.photo_container img').hide()
     $('.photo_container img').eq(showed_image).fadeIn()
+    $('.photo_caption span').hide()
+    $('.photo_caption span').eq(showed_image).fadeIn()
 )
 
 $('.popup').on('click', (e)->
@@ -477,14 +481,14 @@ prepare_popup = (_id)->
     $('.popup h2').text(selected_polygon_name+" "+second_name)
     $('.menu_op_name').text(selected_polygon_name).append( $('<div class="small-header"></div>').text(second_name) )
 
-    build_gallery(current_popup_data.images, current_popup_data.id)
+    build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions)
     build_info(current_popup_data.id)
     build_video(current_popup_data.id)
     build_web(current_popup_data.url)
 
 
 
-build_gallery = (_num_images, folder_name)->
+build_gallery = (_num_images, folder_name, captions)->
     $('.photo_container img').remove()
 
     is_photo_enable = true
@@ -497,11 +501,16 @@ build_gallery = (_num_images, folder_name)->
         $('.popup_menu .photo').text({"en": "No Photo", "ru": "Нет Фото"}[lang])
 
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
+    $('.photo_caption').append($('<span />'))
     for i in [1.._num_images]
         $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+i+'.jpg') )
+        if captions && captions[i-1]
+            $('.photo_caption').append($('<span />').html(captions[i-1][lang]))
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/1.jpg') )
     $('.photo_container img').fadeOut(50)
+    $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50)
+    $('.photo_caption span').eq(showed_image).fadeIn(50)
     num_images = _num_images
 
 build_info = (_id)->

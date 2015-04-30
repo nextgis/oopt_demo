@@ -423,7 +423,9 @@
       showed_image = num_images;
     }
     $('.photo_container img').hide();
-    return $('.photo_container img').eq(showed_image).fadeIn();
+    $('.photo_container img').eq(showed_image).fadeIn();
+    $('.photo_caption span').hide();
+    return $('.photo_caption span').eq(showed_image).fadeIn();
   });
 
   $('.photos_right').on('click', function(e) {
@@ -433,7 +435,9 @@
       showed_image = 1;
     }
     $('.photo_container img').hide();
-    return $('.photo_container img').eq(showed_image).fadeIn();
+    $('.photo_container img').eq(showed_image).fadeIn();
+    $('.photo_caption span').hide();
+    return $('.photo_caption span').eq(showed_image).fadeIn();
   });
 
   $('.popup').on('click', function(e) {
@@ -458,13 +462,13 @@
     }[lang];
     $('.popup h2').text(selected_polygon_name + " " + second_name);
     $('.menu_op_name').text(selected_polygon_name).append($('<div class="small-header"></div>').text(second_name));
-    build_gallery(current_popup_data.images, current_popup_data.id);
+    build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions);
     build_info(current_popup_data.id);
     build_video(current_popup_data.id);
     return build_web(current_popup_data.url);
   };
 
-  build_gallery = function(_num_images, folder_name) {
+  build_gallery = function(_num_images, folder_name, captions) {
     var i, j, ref;
     $('.photo_container img').remove();
     is_photo_enable = true;
@@ -482,12 +486,18 @@
       }[lang]);
     }
     $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + _num_images + '.jpg'));
+    $('.photo_caption').append($('<span />'));
     for (i = j = 1, ref = _num_images; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
       $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + i + '.jpg'));
+      if (captions && captions[i - 1]) {
+        $('.photo_caption').append($('<span />').html(captions[i - 1][lang]));
+      }
     }
     $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/1.jpg'));
     $('.photo_container img').fadeOut(50);
+    $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50);
+    $('.photo_caption span').eq(showed_image).fadeIn(50);
     return num_images = _num_images;
   };
 
