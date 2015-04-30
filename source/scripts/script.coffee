@@ -115,10 +115,10 @@ load_np = ()->
                 entity.polygon.material = mat_property;
                 entity.polygon.outline = new Cesium.ConstantProperty(false);
                 entity.isNP = true
-                if !oopt[entity.properties.Name_en]
-                    oopt[entity.properties.Name_en] = []
-                oopt[entity.properties.Name_en].push(entity)
-                oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
+                if !oopt[entity.properties["Name_" + lang]]
+                    oopt[entity.properties["Name_" + lang]] = []
+                oopt[entity.properties["Name_" + lang]].push(entity)
+                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
 
         load_zp()
     )
@@ -136,10 +136,10 @@ load_zp = ()->
                 entity.polygon.material = mat_property
                 entity.polygon.outline = new Cesium.ConstantProperty(false)
                 entity.isNP = false
-                if !oopt[entity.properties.Name_en]
-                    oopt[entity.properties.Name_en] = []
-                oopt[entity.properties.Name_en].push(entity)
-                oopt[entity.properties.Name_en]._id = entity.properties.ids_ID
+                if !oopt[entity.properties["Name_" + lang]]
+                    oopt[entity.properties["Name_" + lang]] = []
+                oopt[entity.properties["Name_" + lang]].push(entity)
+                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
                 # console.log entity.properties.ids_ID
 
         build_pups()
@@ -257,7 +257,7 @@ handler.setInputAction( ( (movement)->
         if (typeof polygon.id) == "string"
             polygon_name = polygon.id
         else
-            polygon_name = polygon.id.properties.Name_en
+            polygon_name = polygon.id.properties["Name_" + lang]
         selected_polygon_name = polygon_name
 
         rect = get_oopt_rect(polygon_name)
@@ -473,7 +473,7 @@ prepare_popup = (_id)->
 #    current_popup_data = popups_data[0]
 
 
-    second_name =  if (oopt[selected_polygon_name][0].isNP) then "National Park" else "Nature Reserve"
+    second_name =  if (oopt[selected_polygon_name][0].isNP) then {"en": "National Park", "ru": "Национальный парк"}[lang] else {"en": "Nature Reserve", "ru": "Заповедник"}[lang]
     $('.popup h2').text(selected_polygon_name+" "+second_name)
     $('.menu_op_name').text(selected_polygon_name).append( $('<div class="small-header"></div>').text(second_name) )
 
@@ -489,12 +489,12 @@ build_gallery = (_num_images, folder_name)->
 
     is_photo_enable = true
     $('.popup_menu .photo').css('opacity', 1)
-    $('.popup_menu .photo').text('Photo')
+    $('.popup_menu .photo').text({"en": "Photo", "ru": "Фото"}[lang])
 
     if _num_images == 0
         is_photo_enable = false
         $('.popup_menu .photo').css('opacity', 0.5)
-        $('.popup_menu .photo').text('No Photo')
+        $('.popup_menu .photo').text({"en": "No Photo", "ru": "Нет Фото"}[lang])
 
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
     for i in [1.._num_images]
@@ -520,7 +520,7 @@ build_video = (_id)->
     is_video_enable = true
 
     $('.popup_menu .video').css('opacity', 1)
-    $('.popup_menu .video').text('Video')
+    $('.popup_menu .video').text({"en": "Video", "ru": "Видео"}[lang])
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video></video>')
@@ -536,7 +536,7 @@ build_video = (_id)->
       if $('video').attr('src') == $('video').attr('src-mp4')
           is_video_enable = false
           $('.popup_menu .video').css('opacity', 0.5)
-          $('.popup_menu .video').text('No Video')
+          $('.popup_menu .video').text({"en": "No Video", "ru": "Нет Видео"}[lang])
       else
           $('video').attr('src', $('video').attr('src-mp4'))
     )

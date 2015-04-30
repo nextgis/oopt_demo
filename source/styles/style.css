@@ -285,6 +285,17 @@ video{
     background-color: #000000;
 }
 
+.lang_selector{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.lang_selector a{
+    color: #ddd;
+}
+
+
 
 
 
