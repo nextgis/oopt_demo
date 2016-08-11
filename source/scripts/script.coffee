@@ -440,6 +440,7 @@ open_web_popup = ()->
 
 $('.close_popup').on('click', (e)->
     $('.popup').hide()
+    $('video')[0].pause()
     e.stopPropagation()
 )
 
@@ -544,10 +545,8 @@ build_video = (_id)->
     video_parent.append('<video></video>')
     $('video').attr('src', 'data/'+_id+'/video/1.mov')
     $('video').attr('src-mp4', 'data/'+_id+'/video/1.mp4')
-
-    $('video').attr('preload','auto')
+    $('video').attr('preload','metadata')
     $('video').attr('controls','true')
-    $('video').attr('autoplay','true')
 
 
     $("video").on("error", ()->
