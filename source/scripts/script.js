@@ -90,7 +90,7 @@
   load_np = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/np-bcc.topojson").then(function() {
+    return dataSource.load("ndata/np.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -117,7 +117,7 @@
   load_zp = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/zp-bcc.topojson").then(function() {
+    return dataSource.load("ndata/zp.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -578,3 +578,5 @@
   setInterval(check_time, 1000);
 
 }).call(this);
+
+//# sourceMappingURL=script.js.map

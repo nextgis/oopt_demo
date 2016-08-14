@@ -114,7 +114,7 @@ scene.camera.flyTo({
 #    DATA LOADER
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/np-bcc.topojson").then( ()->
+    dataSource.load("ndata/np.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -135,7 +135,7 @@ load_np()
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/zp-bcc.topojson").then( ()->
+    dataSource.load("ndata/zp.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
