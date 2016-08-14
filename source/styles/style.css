@@ -141,12 +141,12 @@ h2{
 
 .np:before,
 .legend__item--np:before{
-    background-color: rgb(206,153,48);
+    background-color: #d8b366;
 }
 
 .zp:before,
 .legend__item--zp:before{
-    background-color: rgb(140,200,17);
+    background-color: #7ab342;
 }
 
 #cesiumContainer {

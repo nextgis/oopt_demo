@@ -170,11 +170,11 @@ build_pups = ()->
         )
 
         if oopt[entity_key][0].isNP
-            color = new Cesium.Color.fromCssColorString('rgb(206, 153, 48)')
+            color = new Cesium.Color.fromCssColorString('#d8b366')
             $(".left_menu div:last-child").addClass('np')
         else
             $(".left_menu div:last-child").addClass('zp')
-            color = new Cesium.Color.fromCssColorString('rgb(140,200,17)')
+            color = new Cesium.Color.fromCssColorString('#7ab342')
 
         rect = get_oopt_rect(entity_key)
 
@@ -187,7 +187,9 @@ build_pups = ()->
         oopt[entity_key].center = center
 
         billboards.add({
-            image : 'images/pin.png',
+            image : 'images/white-pin.svg',
+            width : 32,
+            height : 38,
             position : Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
             horizontalOrigin : Cesium.HorizontalOrigin.Center,
             verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
