@@ -110,7 +110,7 @@ load_np = ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color(0, 0.3, 0.9, 0.6) );
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property;
@@ -131,7 +131,7 @@ load_zp = ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color(0, 0.9, 0.3, 0.6) )
+        mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color.fromCssColorString('rgba(105,131,40, .87)'))
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property
@@ -170,11 +170,11 @@ build_pups = ()->
         )
 
         if oopt[entity_key][0].isNP
-            color = new Cesium.Color(0, 0.3, 0.9, 1)
+            color = new Cesium.Color.fromCssColorString('rgb(206, 153, 48)')
             $(".left_menu div:last-child").addClass('np')
         else
             $(".left_menu div:last-child").addClass('zp')
-            color = new Cesium.Color(0, 0.9, 0.3, 1)
+            color = new Cesium.Color.fromCssColorString('rgb(140,200,17)')
 
         rect = get_oopt_rect(entity_key)
 
@@ -187,11 +187,14 @@ build_pups = ()->
         oopt[entity_key].center = center
 
         billboards.add({
-            image : 'images/dot.png',
+            image : 'images/pin.png',
             position : Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
+            horizontalOrigin : Cesium.HorizontalOrigin.Center,
+            verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
             id: entity_key,
             color : color,
             translucencyByDistance : new Cesium.NearFarScalar(1500000, 0, 1600000, 1)
+            scaleByDistance : new Cesium.NearFarScalar(1.5e2, 1.5, 1.5e7, 0.75),
         })
 
     load_borders()
@@ -214,7 +217,7 @@ load_borders = ()->
                         vertexFormat : Cesium.PolylineColorAppearance.VERTEX_FORMAT
                     }),
                     attributes: {
-                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(0, 0.3, 0.9, 0.6))
+                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(45,25,15, .33)'))
                     }
                 }),
                 appearance : new Cesium.PolylineColorAppearance()

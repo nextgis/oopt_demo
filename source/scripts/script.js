@@ -86,7 +86,7 @@
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
-      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color(0, 0.3, 0.9, 0.6));
+      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)'));
       for (j = 0, len = entities.length; j < len; j++) {
         entity = entities[j];
         if (entity.polygon) {
@@ -113,7 +113,7 @@
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
-      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color(0, 0.9, 0.3, 0.6));
+      mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color.fromCssColorString('rgba(105,131,40, .87)'));
       for (j = 0, len = entities.length; j < len; j++) {
         entity = entities[j];
         if (entity.polygon) {
@@ -155,11 +155,11 @@
         return e.stopPropagation();
       });
       if (oopt[entity_key][0].isNP) {
-        color = new Cesium.Color(0, 0.3, 0.9, 1);
+        color = new Cesium.Color.fromCssColorString('rgb(206, 153, 48)');
         $(".left_menu div:last-child").addClass('np');
       } else {
         $(".left_menu div:last-child").addClass('zp');
-        color = new Cesium.Color(0, 0.9, 0.3, 1);
+        color = new Cesium.Color.fromCssColorString('rgb(140,200,17)');
       }
       rect = get_oopt_rect(entity_key);
       center = Cesium.Rectangle.center(rect);
@@ -169,11 +169,14 @@
       }
       oopt[entity_key].center = center;
       billboards.add({
-        image: 'images/dot.png',
+        image: 'images/pin.png',
         position: Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
+        horizontalOrigin: Cesium.HorizontalOrigin.Center,
+        verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
         id: entity_key,
         color: color,
-        translucencyByDistance: new Cesium.NearFarScalar(1500000, 0, 1600000, 1)
+        translucencyByDistance: new Cesium.NearFarScalar(1500000, 0, 1600000, 1),
+        scaleByDistance: new Cesium.NearFarScalar(1.5e2, 1.5, 1.5e7, 0.75)
       });
     }
     return load_borders();
@@ -197,7 +200,7 @@
               vertexFormat: Cesium.PolylineColorAppearance.VERTEX_FORMAT
             }),
             attributes: {
-              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(0, 0.3, 0.9, 0.6))
+              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(45,25,15, .33)'))
             }
           }),
           appearance: new Cesium.PolylineColorAppearance()
