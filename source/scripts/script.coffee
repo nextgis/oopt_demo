@@ -339,25 +339,29 @@ $('.map_selector').on('click', (e)->
 
 #   MENU CLICK HANDLERS
 
-$('.popup_menu .info').on('click', (e)->
+$('.popup_menu').on('click', (e)->
     e.stopPropagation()
+)
+
+$('.popup_menu .info').on('click', (e)->
+    e.preventDefault()
     open_info_popup()
 )
 
 is_video_enable = true
 $('.popup_menu .video').on('click', (e)->
-    e.stopPropagation()
+    e.preventDefault()
     if is_video_enable then open_video_popup()
 )
 
 is_photo_enable = true
 $('.popup_menu .photo').on('click', (e)->
-    e.stopPropagation()
+    e.preventDefault()
     if is_photo_enable then open_photo_popup()
 )
 
 $('.popup_menu .web').on('click', (e)->
-    e.stopPropagation()
+    e.preventDefault()
     open_web_popup()
 )
 
@@ -375,9 +379,7 @@ open_menu = ()->
     selected_id = oopt[selected_polygon_name]._id
     prepare_popup(selected_id)
 
-    $('.popup_menu').stop()
-    $('.popup_menu').animate({bottom:"15%"}, 2000)
-#    $('.menu_op_name').text(selected_polygon_name)
+    $('.info-panel').removeClass("info-panel--hidden")
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(true)
@@ -393,9 +395,7 @@ open_menu = ()->
 
 close_menu = ()->
     $('.left_menu div').removeClass('selected_item')
-    $('.popup_menu').stop()
-    $('.popup_menu').animate({bottom:"-30%"}, 500)
-    $('.popup').hide()
+    $('.info-panel').addClass("info-panel--hidden")
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(false)
@@ -433,11 +433,6 @@ $('.close_popup').on('click', (e)->
     $('video')[0].pause()
     e.stopPropagation()
 )
-
-$('.menu_op_name').on('click', (e)->
-    e.stopPropagation()
-)
-
 
 #    PHOTO GALLERY
 showed_image = 1
@@ -479,7 +474,8 @@ prepare_popup = (_id)->
 
     second_name =  if (oopt[selected_polygon_name][0].isNP) then {"en": "National Park", "ru": "Национальный парк"}[lang] else {"en": "Nature Reserve", "ru": "Заповедник"}[lang]
     $('.popup h2').text(selected_polygon_name+" "+second_name)
-    $('.menu_op_name').text(selected_polygon_name).append( $('<div class="small-header"></div>').text(second_name) )
+    $('.info-panel__title').text(selected_polygon_name)
+    $('.info-panel__subtitle').text(second_name)
 
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions)
     build_info(current_popup_data.id)
@@ -492,13 +488,11 @@ build_gallery = (_num_images, folder_name, captions)->
     $('.photo_container img').remove()
 
     is_photo_enable = true
-    $('.popup_menu .photo').css('opacity', 1)
-    $('.popup_menu .photo').text({"en": "Photo", "ru": "Фото"}[lang])
+    $('.popup_menu .photo').removeClass("disabled")
 
     if _num_images == 0
         is_photo_enable = false
-        $('.popup_menu .photo').css('opacity', 0.5)
-        $('.popup_menu .photo').text({"en": "No Photo", "ru": "Нет Фото"}[lang])
+        $('.popup_menu .photo').addClass("disabled")
 
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
     $('.photo_caption').append($('<span />'))
@@ -528,8 +522,7 @@ build_web = (url)->
 build_video = (_id)->
     is_video_enable = true
 
-    $('.popup_menu .video').css('opacity', 1)
-    $('.popup_menu .video').text({"en": "Video", "ru": "Видео"}[lang])
+    $('.popup_menu .video').removeClass("disabled")
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video></video>')
@@ -542,8 +535,7 @@ build_video = (_id)->
     $("video").on("error", ()->
       if $('video').attr('src') == $('video').attr('src-mp4')
           is_video_enable = false
-          $('.popup_menu .video').css('opacity', 0.5)
-          $('.popup_menu .video').text({"en": "No Video", "ru": "Нет Видео"}[lang])
+          $('.popup_menu .video').addClass("disabled")
       else
           $('video').attr('src', $('video').attr('src-mp4'))
     )

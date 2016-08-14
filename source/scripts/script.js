@@ -306,15 +306,19 @@
     return e.stopPropagation();
   });
 
+  $('.popup_menu').on('click', function(e) {
+    return e.stopPropagation();
+  });
+
   $('.popup_menu .info').on('click', function(e) {
-    e.stopPropagation();
+    e.preventDefault();
     return open_info_popup();
   });
 
   is_video_enable = true;
 
   $('.popup_menu .video').on('click', function(e) {
-    e.stopPropagation();
+    e.preventDefault();
     if (is_video_enable) {
       return open_video_popup();
     }
@@ -323,14 +327,14 @@
   is_photo_enable = true;
 
   $('.popup_menu .photo').on('click', function(e) {
-    e.stopPropagation();
+    e.preventDefault();
     if (is_photo_enable) {
       return open_photo_popup();
     }
   });
 
   $('.popup_menu .web').on('click', function(e) {
-    e.stopPropagation();
+    e.preventDefault();
     return open_web_popup();
   });
 
@@ -338,10 +342,7 @@
     var element, j, len, ref, selected_id;
     selected_id = oopt[selected_polygon_name]._id;
     prepare_popup(selected_id);
-    $('.popup_menu').stop();
-    $('.popup_menu').animate({
-      bottom: "15%"
-    }, 2000);
+    $('.info-panel').removeClass("info-panel--hidden");
     ref = oopt[selected_polygon_name];
     for (j = 0, len = ref.length; j < len; j++) {
       element = ref[j];
@@ -359,11 +360,7 @@
   close_menu = function() {
     var element, j, len, ref, results;
     $('.left_menu div').removeClass('selected_item');
-    $('.popup_menu').stop();
-    $('.popup_menu').animate({
-      bottom: "-30%"
-    }, 500);
-    $('.popup').hide();
+    $('.info-panel').addClass("info-panel--hidden");
     ref = oopt[selected_polygon_name];
     results = [];
     for (j = 0, len = ref.length; j < len; j++) {
@@ -409,10 +406,6 @@
   $('.close_popup').on('click', function(e) {
     $('.popup').hide();
     $('video')[0].pause();
-    return e.stopPropagation();
-  });
-
-  $('.menu_op_name').on('click', function(e) {
     return e.stopPropagation();
   });
 
@@ -465,7 +458,8 @@
       "ru": "Заповедник"
     }[lang];
     $('.popup h2').text(selected_polygon_name + " " + second_name);
-    $('.menu_op_name').text(selected_polygon_name).append($('<div class="small-header"></div>').text(second_name));
+    $('.info-panel__title').text(selected_polygon_name);
+    $('.info-panel__subtitle').text(second_name);
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions);
     build_info(current_popup_data.id);
     build_video(current_popup_data.id);
@@ -476,18 +470,10 @@
     var i, j, ref;
     $('.photo_container img').remove();
     is_photo_enable = true;
-    $('.popup_menu .photo').css('opacity', 1);
-    $('.popup_menu .photo').text({
-      "en": "Photo",
-      "ru": "Фото"
-    }[lang]);
+    $('.popup_menu .photo').removeClass("disabled");
     if (_num_images === 0) {
       is_photo_enable = false;
-      $('.popup_menu .photo').css('opacity', 0.5);
-      $('.popup_menu .photo').text({
-        "en": "No Photo",
-        "ru": "Нет Фото"
-      }[lang]);
+      $('.popup_menu .photo').addClass("disabled");
     }
     $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + _num_images + '.jpg'));
     $('.photo_caption').append($('<span />'));
@@ -525,11 +511,7 @@
   build_video = function(_id) {
     var video_parent;
     is_video_enable = true;
-    $('.popup_menu .video').css('opacity', 1);
-    $('.popup_menu .video').text({
-      "en": "Video",
-      "ru": "Видео"
-    }[lang]);
+    $('.popup_menu .video').removeClass("disabled");
     video_parent = $('video').parent();
     $('video').remove();
     video_parent.append('<video></video>');
@@ -540,11 +522,7 @@
     return $("video").on("error", function() {
       if ($('video').attr('src') === $('video').attr('src-mp4')) {
         is_video_enable = false;
-        $('.popup_menu .video').css('opacity', 0.5);
-        return $('.popup_menu .video').text({
-          "en": "No Video",
-          "ru": "Нет Видео"
-        }[lang]);
+        return $('.popup_menu .video').addClass("disabled");
       } else {
         return $('video').attr('src', $('video').attr('src-mp4'));
       }

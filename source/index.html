@@ -37,13 +37,39 @@
     <div class="map_selector_fader"></div>
 </div>
 
-<div class="popup_menu" style="bottom: -30%">
-    <div class="info">Info</div>
-    <div class="video">Video</div>
-    <div class="photo">Photo</div>
-    <div class="web">Web</div>
-
-    <div class="menu_op_name">Hallo</div>
+<div class="info-panel info-panel--hidden popup_menu">
+    <div class="info-panel__inner">
+        <a href="#" class="info-panel__more-link info"></a>
+        <button class="info-panel__more info btn">Read more</button>
+        <div class="info-panel__title"></div>
+        <div class="info-panel__subtitle"></div>
+    </div>
+    <div class="info-panel__links">
+        <div class="info-panel__links__item">
+            <a href="#" class="info-panel__link link-with-icon photo">
+                <i class="info-panel__link__icon info-panel__link__icon--photo icon-photo_camera"></i>
+                <span class="link-with-icon__text">Photo</span>
+            </a>
+        </div>
+        <div class="info-panel__links__item">
+            <a href="#" class="info-panel__link link-with-icon video">
+                <i class="info-panel__link__icon info-panel__link__icon--video icon-videocam"></i>
+                <span class="link-with-icon__text">Video</span>
+            </a>
+        </div>
+        <div class="info-panel__links__item">
+            <a href="#" class="info-panel__link link-with-icon route">
+                <i class="info-panel__link__icon info-panel__link__icon--route icon-route"></i>
+                <span class="link-with-icon__text">Routes</span>
+            </a>
+        </div>
+        <div class="info-panel__links__item">
+            <a href="#" class="info-panel__link link-with-icon investment">
+                <i class="info-panel__link__icon info-panel__link__icon--investment icon-attach_money"></i>
+                <span class="link-with-icon__text">Investing projects</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <div class="popup" style="display: none">
