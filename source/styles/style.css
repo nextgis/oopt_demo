@@ -121,8 +121,8 @@ h2{
     position: absolute;
     top: 0;
     left: 200px;
+    right: 0;
     height: 100%;
-    width: 100px;
     margin: 0;
     overflow: hidden;
     padding: 0;

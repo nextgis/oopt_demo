@@ -72,14 +72,6 @@ popups_data = []
 
 selected_polygon_name = ''
 
-#   SCENE RESIZE
-
-resize = ()->
-    $('#cesiumContainer').css('width', parseInt($(document).width())-200+'px')
-
-resize()
-$(window).on('resize', resize)
-
 #   FULLSCREEN
 $('.fullscreen_btn').click(()->
     if $.fullscreen.isFullScreen()
@@ -395,7 +387,7 @@ open_menu = ()->
         if( $(this).text() == selected_polygon_name )
             $(this).addClass('selected_item')
     )
-    
+
 close_menu = ()->
     $('.left_menu div').removeClass('selected_item')
     $('.popup_menu').stop()
