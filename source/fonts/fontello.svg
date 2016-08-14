@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2016 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="attach_money" unicode="&#xe800;" d="M492 395c94-25 196-63 196-182 0-86-65-132-147-148v-90h-125v90c-80 17-146 68-152 160h92c3-49 37-88 123-88 91 0 113 45 113 74 0 39-22 77-125 102-117 27-195 76-195 172 0 80 64 133 144 150v90h125v-92c88-21 133-86 135-158h-92c-2 53-31 88-105 88-71 0-112-33-112-78 0-39 31-65 125-90z" horiz-adv-x="1000" />
+
+<glyph glyph-name="route" unicode="&#xe801;" d="M250 100c0-46-37-83-83-83s-84 37-84 83c0 46 38 83 84 83s83-37 83-83z m583 583c-46 0-83-37-83-83s37-83 83-83c47 0 84 37 84 83s-38 83-84 83z m-83-291h-500c-46 0-83 37-83 83s37 83 83 83h257l-66-66 59-59 167 167-42 42v0h0l-125 125-59-59 66-66h-257c-92 0-167-75-167-167s75-167 167-167h500c46 0 83-37 83-83s-37-83-83-83h-417v-84h417c92 0 167 75 167 167s-75 167-167 167z" horiz-adv-x="1000" />
+
+<glyph glyph-name="info_outline" unicode="&#xe802;" d="M459 475v84h82v-84h-82z m41-459c184 0 334 150 334 334s-150 334-334 334-334-150-334-334 150-334 334-334z m0 750c231 0 416-185 416-416s-185-416-416-416-416 186-416 416 186 416 416 416z m-41-625v250h82v-250h-82z" horiz-adv-x="1000" />
+
+<glyph glyph-name="info" unicode="&#xe803;" d="M541 475v84h-82v-84h82z m0-334v250h-82v-250h82z m-41 625c231 0 416-185 416-416s-185-416-416-416-416 186-416 416 186 416 416 416z" horiz-adv-x="1000" />
+
+<glyph glyph-name="photo_camera" unicode="&#xe804;" d="M500 141c115 0 209 94 209 209s-94 209-209 209-209-94-209-209 94-209 209-209z m-125 625h250l76-82h133c45 0 82-39 82-84v-500c0-45-37-84-82-84h-668c-45 0-82 39-82 84v500c0 45 37 84 82 84h133z m-8-416c0 74 59 133 133 133s133-59 133-133-59-133-133-133-133 59-133 133z" horiz-adv-x="1000" />
+
+<glyph glyph-name="videocam" unicode="&#xe805;" d="M709 413l166 166v-457l-166 166v-147c0-23-19-41-43-41h-500c-23 0-41 18-41 41v418c0 23 18 41 41 41h500c24 0 43-18 43-41v-146z" horiz-adv-x="1000" />
+</font>
+</defs>
+</svg>
