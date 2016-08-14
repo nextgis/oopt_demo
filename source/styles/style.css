@@ -27,6 +27,7 @@
 }
 
 body{
+    font-size: 13px;
     font-family: "Open Sans", sans-serif;
     letter-spacing: .4px;
     background-color: #000000;
@@ -85,18 +86,35 @@ h2{
 }
 
 .left_menu div{
+    position: relative;
     padding: 10px;
     cursor: pointer;
-    margin: 2px;
-    font-size: 13px;
+    margin: 2px 0;
+    padding-left: 24px;
+}
+    .left_menu div:before,
+    .legend__item:before{
+        content:"";
+        position: absolute;
+        left: 8px;
+        top: 15px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+    
+    .left_menu div:hover{
+        background-color: rgba(255,255,255, .24);
+    }
+
+.np:before,
+.legend__item--np:before{
+    background-color: rgb(206,153,48);
 }
 
-.np{
-    border-left: solid #0088FF 5px;
-}
-
-.zp{
-    border-left: solid lawngreen 5px;
+.zp:before,
+.legend__item--zp:before{
+    background-color: rgb(140,200,17);
 }
 
 #cesiumContainer {
@@ -193,6 +211,7 @@ h2{
     border: solid 1px #333;
     padding: 50px;
     overflow: hidden;
+    z-index: 1000;
 
     -webkit-box-shadow: 2px 2px 25px 5px rgba(50, 50, 50, 1);
     -moz-box-shadow:    2px 2px 25px 5px rgba(50, 50, 50, 1);
@@ -293,17 +312,40 @@ video{
     font-size: 20px !important;
 }
 
-.selected_item{
-    background-color: #ffffff !important;
-    color: #000000 !important;
+.left_menu .selected_item,
+.left_menu .selected_item:hover{
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.24);
 }
 
 
 .legend{
     position: absolute;
-    bottom: 35px;
-    right: 10px;
+    top: 10px;
+    left: 210px;
+    background-color: rgba(0,0,0,.67);
+    padding: 10px;
+    list-style-type: none;
+    z-index: 2;
+    color: #fff;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.67);
+    padding: 6px 14px 8px 3px;
+    margin:0;
 }
+    .legend__item{
+        display: inline-block;
+        position: relative;
+        padding-left: 24px;
+        margin:2px 0 2px 4px;
+    }
+        .legend__item:before{
+            top: 6px;
+        }
+
+        .legend__item:first-child{
+            margin-left:0;
+        }
 
 .small-header{
     font-size: 17px;

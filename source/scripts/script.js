@@ -356,8 +356,7 @@
     return $('.left_menu div').each(function() {
       $(this).removeClass('selected_item');
       if ($(this).text() === selected_polygon_name) {
-        $(this).addClass('selected_item');
-        return $('.left_menu').scrollTop($('.left_menu').scrollTop() + $(this).position().top - 300);
+        return $(this).addClass('selected_item');
       }
     });
   };
