@@ -532,7 +532,7 @@ build_video = (_id)->
     $('.popup_menu .video').text({"en": "Video", "ru": "Видео"}[lang])
     video_parent = $('video').parent()
     $('video').remove()
-    video_parent.append('<video></video>')
+    video_parent.append('<video class="popup__panel__inner"></video>')
     $('video').attr('src', 'data/'+_id+'/video/1.mov')
     $('video').attr('src-mp4', 'data/'+_id+'/video/1.mp4')
     $('video').attr('preload','metadata')

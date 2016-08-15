@@ -79,7 +79,7 @@ body{
 h2{
     font-weight: normal;
     font-size: 25px;
-    margin-top: -20px;
+    margin-top: 0px;
 }
 
 .left_menu{
@@ -249,41 +249,44 @@ h2{
 .popup{
     position: absolute;
     top: 2%;
-    left: 27%;
-    width: 700px;
-    height: 425px;
+    left: 200px;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+    height: 480px;
     background-color: #ffffff;
-    border: solid 1px #333;
-    padding: 50px;
+    padding: 18px 24px 36px;
     overflow: hidden;
     z-index: 1000;
 
-    -webkit-box-shadow: 2px 2px 25px 5px rgba(50, 50, 50, 1);
-    -moz-box-shadow:    2px 2px 25px 5px rgba(50, 50, 50, 1);
-    box-shadow:         2px 2px 25px 5px rgba(50, 50, 50, 1);
+    -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:    0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
+    box-shadow:         0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
 }
+    .popup__panel{
+        position: relative;
+        height: 424px; 
+    }
+
+        .popup__panel__inner{
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+        }
 
 .popup .info{
-    position: relative;
+    margin-left: -5px;  
 }
 
-.popup .info iframe{
+.popup__panel iframe{
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 690px;
-    height: 360px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
-}
-
-.popup .web iframe{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 800px;
-    height: 525px;
-    overflow: hidden;
-    overflow-x: hidden;
 }
 
 .popup .video iframe{
@@ -300,15 +303,9 @@ h2{
     float: left;
 }
 
-.popup .photo{
-    /*margin-top: 80px;*/
-}
-
 .photo_container{
-    width: 700px;
-    height: 380px;
-    /*background-color: #333333;*/
-    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .photo_container img{
@@ -327,24 +324,26 @@ video{
     height: 380px;
 }
 
-.photos_left{
+.photos_left,
+.photos_right{
     position: absolute;
-    top: 150px;
-    left: 0px;
+    top: 50%;
+    margin-top: -150px;
     cursor: pointer;
 }
 
+.photos_left{
+    left: -20px;
+}
+
 .photos_right{
-    position: absolute;
-    top: 150px;
-    left: 750px;
-    cursor: pointer;
+    right: -20px;
 }
 
 .close_popup{
     position: absolute;
-    top: 0px;
-    left: 755px;
+    top: 5px;
+    right: 5px;
     cursor: pointer;
 }
 
