@@ -139,13 +139,11 @@ h2{
         background-color: rgba(255,255,255, .24);
     }
 
-.np:before,
-.legend__item--np:before{
+.np:before{
     background-color: #d8b366;
 }
 
-.zp:before,
-.legend__item--zp:before{
+.zp:before{
     background-color: #7ab342;
 }
 
@@ -368,29 +366,40 @@ video{
     position: absolute;
     top: 20px;
     left: 220px;
-    background-color: rgba(0,0,0,.67);
+    background-color: #000;
     padding: 10px;
     list-style-type: none;
     z-index: 2;
     color: #fff;
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.67);
-    padding: 6px 14px 8px 3px;
+    padding: 4px 16px 6px 10px;
     margin:0;
+    font-size: 14px;
 }
     .legend__item{
-        display: inline-block;
         position: relative;
-        padding-left: 24px;
-        margin:2px 0 2px 4px;
+        margin:2px 0;
     }
-        .legend__item:before{
-            top: 6px;
-        }
 
-        .legend__item:first-child{
-            margin-left:0;
-        }
+    .legend__item__icon{
+        width: 24px;
+        height: 32px;
+        stroke: #2A0B07;
+        stroke-width: 2.8346;
+        margin-right: 2px;
+        vertical-align: middle;
+    }
+
+    .legend__item--np .legend__item__icon{
+        fill: #d8b366;
+    }
+
+    .legend__item--zp .legend__item__icon{
+        fill: #7ab342;
+    }
+
+    .legend__item__text{
+        vertical-align: middle;
+    }
 
 .small-header{
     font-size: 17px;
