@@ -187,9 +187,7 @@ build_pups = ()->
         oopt[entity_key].center = center
 
         billboards.add({
-            image : 'images/white-pin.svg',
-            width : 32,
-            height : 38,
+            image : 'images/white-pin.png',
             position : Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
             horizontalOrigin : Cesium.HorizontalOrigin.Center,
             verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
