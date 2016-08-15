@@ -302,8 +302,9 @@ h2{
 }
 
 .photo_container{
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 660px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .photo_container img{
@@ -328,21 +329,48 @@ video{
     top: 50%;
     margin-top: -150px;
     cursor: pointer;
+    width: 50px;
+    height: 300px;
 }
 
 .photos_left{
-    left: -20px;
+    left: -24px;
 }
 
 .photos_right{
-    right: -20px;
+    right: -24px;
 }
+
+    .photos_left__icon,
+    .photos_right__icon{
+        font-size: 36px;
+        position: absolute;
+        border: 2px solid;
+        border-radius: 50%;
+        color: rgba(0,0,0,.33);
+        top: 0;
+        bottom:0;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .photos_left__icon{
+        left: 15px;
+    }
+
+    .photos_right__icon{
+        right: 15px;
+    }
 
 .close_popup{
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 15px;
+    right: 15px;
     cursor: pointer;
+    font-size: 36px;
+    color: rgba(0,0,0,.33);
+    border: 2px solid;
+    border-radius: 50%;
 }
 
 .menu_op_name{
