@@ -1,5 +1,10 @@
 #   SETTINGS
 
+geodata = [
+    { name: "np", path: "ndata/dv/np-dv.topojson", color: "#d8b366"},
+    { name: "zp", path: "ndata/dv/zp-dv.topojson", color: "#7ab342"}
+]
+
 viewer = new Cesium.Viewer('cesiumContainer',
     {
         timeline: false,
@@ -104,9 +109,31 @@ scene.camera.flyTo({
 
 
 #    DATA LOADER
+
+load_geodata =()->
+    for data_item in geodata
+        dataSource = new Cesium.GeoJsonDataSource()
+        dataSource.load(data_item.path).then( ()->
+            viewer.dataSources.add(dataSource)
+
+            entities = dataSource.entities.values
+            mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
+            for entity in entities
+                if entity.polygon
+                    entity.polygon.material = mat_property;
+                    entity.polygon.outline = new Cesium.ConstantProperty(false);
+                    entity.isNP = true
+                    if !oopt[entity.properties["Name_" + lang]]
+                        oopt[entity.properties["Name_" + lang]] = []
+                    oopt[entity.properties["Name_" + lang]].push(entity)
+                    oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
+
+            load_zp()
+        )
+    
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/np.topojson").then( ()->
+    dataSource.load("ndata/dv/np-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -127,7 +154,7 @@ load_np()
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/zp.topojson").then( ()->
+    dataSource.load("ndata/dv/zp-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -202,7 +229,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/russia-bnd.topojson').then( ()->
+    border_source.load('ndata/dv/federal_dv.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
