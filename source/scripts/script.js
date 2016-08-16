@@ -304,15 +304,17 @@
     return e.stopPropagation();
   });
 
+  $('.popup_menu').on('click', function(e) {
+    return e.stopPropagation();
+  });
+
   $('.popup_menu .info').on('click', function(e) {
-    e.stopPropagation();
     return open_popup($('.popup .info'));
   });
 
   is_video_enable = true;
 
   $('.popup_menu .video').on('click', function(e) {
-    e.stopPropagation();
     if (is_video_enable) {
       return open_popup($('.popup .video'));
     }
@@ -321,14 +323,12 @@
   is_photo_enable = true;
 
   $('.popup_menu .photo').on('click', function(e) {
-    e.stopPropagation();
     if (is_photo_enable) {
       return open_popup($('.popup .photo'));
     }
   });
 
   $('.popup_menu .web').on('click', function(e) {
-    e.stopPropagation();
     return open_popup($('.popup .web'));
   });
 
