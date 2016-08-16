@@ -339,27 +339,27 @@ $('.map_selector').on('click', (e)->
 
 #   MENU CLICK HANDLERS
 
-$('.popup_menu .info').on('click', (e)->
+$('.popup_menu').on('click', (e)->
     e.stopPropagation()
+)
+
+$('.popup_menu .info').on('click', (e)->
     open_popup($('.popup .info'))
 )
 
 is_video_enable = true
 $('.popup_menu .video').on('click', (e)->
-    e.stopPropagation()
     if is_video_enable
         open_popup($('.popup .video'))
 )
 
 is_photo_enable = true
 $('.popup_menu .photo').on('click', (e)->
-    e.stopPropagation()
     if is_photo_enable
         open_popup($('.popup .photo'))
 )
 
 $('.popup_menu .web').on('click', (e)->
-    e.stopPropagation()
     open_popup($('.popup .web'))
 )
 
