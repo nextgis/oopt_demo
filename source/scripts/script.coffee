@@ -372,24 +372,26 @@ $('.popup_menu').on('click', (e)->
 
 $('.popup_menu .info').on('click', (e)->
     e.preventDefault()
-    open_info_popup()
+    open_popup($('.popup .info'))
 )
 
 is_video_enable = true
 $('.popup_menu .video').on('click', (e)->
     e.preventDefault()
-    if is_video_enable then open_video_popup()
+    if is_video_enable
+        open_popup($('.popup .video'))
 )
 
 is_photo_enable = true
 $('.popup_menu .photo').on('click', (e)->
     e.preventDefault()
-    if is_photo_enable then open_photo_popup()
+    if is_photo_enable
+        open_popup($('.popup .photo'))
 )
 
 $('.popup_menu .web').on('click', (e)->
     e.preventDefault()
-    open_web_popup()
+    open_popup($('.popup .web'))
 )
 
 
@@ -433,31 +435,20 @@ $(document).on('click', ()->
     if selected_polygon_name != ""
         close_menu())
 
-open_info_popup = ()->
-    $('.popup').fadeIn()
-    $('.popup>div').hide()
-    $('.popup .info').show()
-
-open_video_popup = ()->
-    $('.popup').fadeIn()
-    $('.popup>div').hide()
-    $('.popup .video').show()
-    $('video')[0].currentTime = 0
-    $('video')[0].play()
-
-open_photo_popup = ()->
-    $('.popup').fadeIn()
-    $('.popup>div').hide()
-    $('.popup .photo').show()
-
-open_web_popup = ()->
-    $('.popup').fadeIn()
-    $('.popup>div').hide()
-    $('.popup .web').show()
+open_popup = (target)->
+    $('.popup:hidden').fadeIn()
+    $('.popup__panel').hide()
+    if (!$('video')[0].paused)
+        $('video')[0].pause()
+    target.show()
+    if (target.find("video"))
+        target.find("video")[0].currentTime = 0
+        target.find("video")[0].play()
 
 $('.close_popup').on('click', (e)->
     $('.popup').hide()
-    $('video')[0].pause()
+    if (!$('video')[0].paused)
+        $('video')[0].pause()
     e.stopPropagation()
 )
 
