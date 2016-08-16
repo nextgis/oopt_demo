@@ -12,7 +12,7 @@
     scene3DOnly: true,
     fullscreenButton: false,
     imageryProvider: Cesium.createOpenStreetMapImageryProvider({
-      url: '../../oopt/tile_run-bike-hike',
+      url: '../oopt/tile_run-bike-hike',
       maximumLevel: 10
     })
   });
@@ -213,7 +213,7 @@
   };
 
   load_popups_data = function() {
-    return $.getJSON('data/data.json', function(data) {
+    return $.getJSON('../oopt/data/data.json', function(data) {
       return popups_data = data.data;
     });
   };
@@ -472,15 +472,15 @@
         "ru": "Нет Фото"
       }[lang]);
     }
-    $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + _num_images + '.jpg'));
+    $('.photo_container').append($('<img>').attr('src', '../oopt/data/' + folder_name + '/photo/' + _num_images + '.jpg'));
     $('.photo_caption').append($('<span />'));
     for (i = j = 1, ref = _num_images; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
-      $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + i + '.jpg'));
+      $('.photo_container').append($('<img>').attr('src', '../oopt/data/' + folder_name + '/photo/' + i + '.jpg'));
       if (captions && captions[i - 1]) {
         $('.photo_caption').append($('<span />').html(captions[i - 1][lang]));
       }
     }
-    $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/1.jpg'));
+    $('.photo_container').append($('<img>').attr('src', '../oopt/data/' + folder_name + '/photo/1.jpg'));
     $('.photo_container img').fadeOut(50);
     $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50);
@@ -489,7 +489,7 @@
   };
 
   build_info = function(_id) {
-    $('.info iframe').attr('src', 'data/' + _id + '/index.html');
+    $('.info iframe').attr('src', '../oopt/data/' + _id + '/index.html');
     return $('.info iframe').load(function() {
       var head;
       head = $(".info iframe").contents().find("head");
@@ -516,8 +516,8 @@
     video_parent = $('video').parent();
     $('video').remove();
     video_parent.append('<video class="popup__panel__inner"></video>');
-    $('video').attr('src', 'data/' + _id + '/video/1.mov');
-    $('video').attr('src-mp4', 'data/' + _id + '/video/1.mp4');
+    $('video').attr('src', '../oopt/data/' + _id + '/video/1.mov');
+    $('video').attr('src-mp4', '../oopt/data/' + _id + '/video/1.mp4');
     $('video').attr('preload', 'metadata');
     $('video').attr('controls', 'true');
     return $("video").on("error", function() {

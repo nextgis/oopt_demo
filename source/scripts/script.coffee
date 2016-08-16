@@ -11,7 +11,7 @@ viewer = new Cesium.Viewer('cesiumContainer',
         scene3DOnly: true,
         fullscreenButton: false,
         imageryProvider: Cesium.createOpenStreetMapImageryProvider({
-          url: '../../oopt/tile_run-bike-hike',
+          url: '../oopt/tile_run-bike-hike',
           maximumLevel: 10
         })
     }
@@ -241,7 +241,7 @@ load_cities = ()->
 
 
 load_popups_data = ()->
-    $.getJSON('data/data.json', (data)->
+    $.getJSON('../oopt/data/data.json', (data)->
         popups_data =  data.data
     )
 
@@ -485,13 +485,13 @@ build_gallery = (_num_images, folder_name, captions)->
         $('.popup_menu .photo').css('opacity', 0.5)
         $('.popup_menu .photo').text({"en": "No Photo", "ru": "Нет Фото"}[lang])
 
-    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/'+_num_images+'.jpg') )
     $('.photo_caption').append($('<span />'))
     for i in [1.._num_images]
-        $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+i+'.jpg') )
+        $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/'+i+'.jpg') )
         if captions && captions[i-1]
             $('.photo_caption').append($('<span />').html(captions[i-1][lang]))
-    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/1.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/1.jpg') )
     $('.photo_container img').fadeOut(50)
     $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50)
@@ -499,7 +499,7 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    $('.info iframe').attr('src', 'data/'+_id+'/index.html')
+    $('.info iframe').attr('src', '../oopt/data/'+_id+'/index.html')
     $('.info iframe').load( ()->
         head = $(".info iframe").contents().find("head")
         head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
@@ -518,8 +518,8 @@ build_video = (_id)->
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
-    $('video').attr('src', 'data/'+_id+'/video/1.mov')
-    $('video').attr('src-mp4', 'data/'+_id+'/video/1.mp4')
+    $('video').attr('src', '../oopt/data/'+_id+'/video/1.mov')
+    $('video').attr('src-mp4', '../oopt/data/'+_id+'/video/1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
