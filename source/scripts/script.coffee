@@ -10,11 +10,9 @@ viewer = new Cesium.Viewer('cesiumContainer',
         animation: false,
         scene3DOnly: true,
         fullscreenButton: false,
-        imageryProvider: new Cesium.BingMapsImageryProvider({
-            url : 'http://dev.virtualearth.net',
-            key : 'Ail9PAst_7-T0BfqYAZjK4fVngfHJ3Fjg_ckK6eX8ro_xXwH2HcYUr_cJVDanhTV',
-            maximumLevel : 500,
-            mapStyle : Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+        imageryProvider: Cesium.createOpenStreetMapImageryProvider({
+          url: '../oopt/kosmo',
+          maximumLevel: 10
         })
     }
 )
