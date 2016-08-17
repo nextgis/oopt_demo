@@ -5,6 +5,10 @@ geodata = [
     { name: "zp", path: "ndata/dv/zp-dv.topojson", color: "#7ab342"}
 ]
 
+settings ={
+    home: [147, 60, 6000000.0]
+}
+
 viewer = new Cesium.Viewer('cesiumContainer',
     {
         timeline: false,
@@ -91,19 +95,19 @@ $('.fullscreen_btn').click(()->
 #   HOME BUTTON OVERRIDE
 viewer.homeButton.viewModel.command.beforeExecute.addEventListener(
     (commandInfo)->
-        fly_to_Russia()
+        fly_to_home()
         commandInfo.cancel = true
 )
 
-fly_to_Russia = ()->
+fly_to_home = ()->
     scene.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
+        destination: Cesium.Cartesian3.fromDegrees(settings.home[0], settings.home[1], settings.home[2]),
         duration: 3
     })
 
 #   CAMERA ON RUSSIAN AT START
 scene.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
+    destination: Cesium.Cartesian3.fromDegrees(settings.home[0], settings.home[1], settings.home[2]),
     duration: 0
 });
 
@@ -338,10 +342,7 @@ cities = [
 
 #    HOME BTN CLICK
 $('.home_btn').on('click', ()->
-    scene.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
-        duration: 3
-    });
+    fly_to_home()
 )
 
 
