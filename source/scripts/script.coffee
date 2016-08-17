@@ -165,66 +165,27 @@ load_zp = ()->
                 oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
                 # console.log entity.properties.ids_ID
 
-        build_pups()
+        build_events()
     )
 
-build_pups = ()->
-    billboards = scene.primitives.add(new Cesium.BillboardCollection())
+build_events = ()->
+    dataSource = new Cesium.GeoJsonDataSource()
 
-    keys = []
-    for key of oopt
-        keys.push(key)
-    keys = keys.sort()
+    dataSource.load("ndata/dv/events.geojson").then( ()->      
+        viewer.dataSources.add(dataSource);
+        entities = dataSource.entities.values
 
-
-    for entity_key in keys
-
-        $(".left_menu").append('<div>')
-        $(".left_menu div:last-child").text(entity_key).on('click', (e)->
-            $('.popup').hide()
-            text = $(this).text()
-            rect = get_oopt_rect(text)
-            scene.camera.flyTo({destination: rect})
-            selected_polygon_name = text
-            setTimeout(open_menu, 100)
-            e.stopPropagation()
-
-        )
-
-        if oopt[entity_key][0].isNP
-            color = new Cesium.Color.fromCssColorString('#a66d61')
-            $(".left_menu div:last-child").addClass('np')
-        if oopt[entity_key][0].isZP
-            color = new Cesium.Color.fromCssColorString('#7ab342')            
-            $(".left_menu div:last-child").addClass('zp')
-
-        if oopt[entity_key][0].isFZ
-            color = new Cesium.Color.fromCssColorString('#d8b366')
-            $(".left_menu div:last-child").addClass('fz')
-
-        rect = get_oopt_rect(entity_key)
-
-        center = Cesium.Rectangle.center(rect)
-        center = [center.latitude, center.longitude]
-        if entity_key == 'Ostrov Vrangelya'
-            center = [rect.north, rect.east]
-
-
-        oopt[entity_key].center = center
-
-        billboards.add({
-            image : 'images/pin.png',
-            position : Cesium.Cartesian3.fromRadians(center[1], center[0], 20000),
-            horizontalOrigin : Cesium.HorizontalOrigin.Center,
-            verticalOrigin : Cesium.VerticalOrigin.BOTTOM,
-            id: entity_key,
-            color : color,
-            translucencyByDistance : new Cesium.NearFarScalar(1500000, 0, 1600000, 1)
-            scaleByDistance : new Cesium.NearFarScalar(1.5e2, 1.5, 1.5e7, 0.75),
-        })
+        for entity in entities
+            entity.billboard = undefined
+            entity.point = new Cesium.PointGraphics({
+                color: Cesium.Color.fromCssColorString('#30b2f1'),
+                outlineColor: Cesium.Color.fromCssColorString('rgba(0,0,0,.7)'),
+                outlineWidth: 6,
+                pixelSize: 11
+            })
 
     load_borders()
-
+    )
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
