@@ -187,7 +187,7 @@
   load_borders = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load('ndata/russia-bnd.topojson').then(function() {
+    return border_source.load('ndata/dv/federal_dv.topojson').then(function() {
       var b_entities, b_entitiy, j, len, positions, results;
       b_entities = border_source.entities.values;
       results = [];
@@ -202,7 +202,7 @@
               vertexFormat: Cesium.PolylineColorAppearance.VERTEX_FORMAT
             }),
             attributes: {
-              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(45,25,15, .33)'))
+              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(153,153,153, .67)'))
             }
           }),
           appearance: new Cesium.PolylineColorAppearance()

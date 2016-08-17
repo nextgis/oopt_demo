@@ -204,7 +204,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/russia-bnd.topojson').then( ()->
+    border_source.load('ndata/dv/federal_dv.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -219,7 +219,7 @@ load_borders = ()->
                         vertexFormat : Cesium.PolylineColorAppearance.VERTEX_FORMAT
                     }),
                     attributes: {
-                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(45,25,15, .33)'))
+                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(153,153,153, .67)'))
                     }
                 }),
                 appearance : new Cesium.PolylineColorAppearance()
