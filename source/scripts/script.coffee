@@ -141,7 +141,7 @@ load_np = ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(185, 132, 121,.87)') );
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property;
@@ -152,9 +152,29 @@ load_np = ()->
                 oopt[entity.properties["Name_" + lang]].push(entity)
                 oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
 
-        load_zp()
+        load_fz()
     )
 load_np()
+
+load_fz = ()->
+    dataSource = new Cesium.GeoJsonDataSource()
+    dataSource.load("ndata/dv/fz-dv.topojson").then( ()->
+        viewer.dataSources.add(dataSource)
+
+        entities = dataSource.entities.values        
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
+        for entity in entities
+            if entity.polygon
+                entity.polygon.material = mat_property;
+                entity.polygon.outline = new Cesium.ConstantProperty(false);
+                entity.isFZ = true
+                if !oopt[entity.properties["Name_" + lang]]
+                    oopt[entity.properties["Name_" + lang]] = []
+                oopt[entity.properties["Name_" + lang]].push(entity)
+                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
+
+        load_zp()
+    )
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
@@ -167,7 +187,7 @@ load_zp = ()->
             if entity.polygon
                 entity.polygon.material = mat_property
                 entity.polygon.outline = new Cesium.ConstantProperty(false)
-                entity.isNP = false
+                entity.isZP = true
                 if !oopt[entity.properties["Name_" + lang]]
                     oopt[entity.properties["Name_" + lang]] = []
                 oopt[entity.properties["Name_" + lang]].push(entity)
@@ -201,11 +221,15 @@ build_pups = ()->
         )
 
         if oopt[entity_key][0].isNP
-            color = new Cesium.Color.fromCssColorString('rgb(206, 153, 48)')
+            color = new Cesium.Color.fromCssColorString('#a66d61')
             $(".left_menu div:last-child").addClass('np')
-        else
+        if oopt[entity_key][0].isZP
+            color = new Cesium.Color.fromCssColorString('#7ab342')            
             $(".left_menu div:last-child").addClass('zp')
-            color = new Cesium.Color.fromCssColorString('rgb(140,200,17)')
+
+        if oopt[entity_key][0].isFZ
+            color = new Cesium.Color.fromCssColorString('#d8b366')
+            $(".left_menu div:last-child").addClass('fz')
 
         rect = get_oopt_rect(entity_key)
 
