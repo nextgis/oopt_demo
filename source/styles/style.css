@@ -152,7 +152,7 @@ h2{
 #cesiumContainer {
     position: absolute;
     top: 0;
-    left: 200px;
+    left: 0;
     right: 0;
     height: 100%;
     margin: 0;
