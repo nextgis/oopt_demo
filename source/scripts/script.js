@@ -246,7 +246,7 @@
               vertexFormat: Cesium.PolylineColorAppearance.VERTEX_FORMAT
             }),
             attributes: {
-              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(45,25,15, .33)'))
+              color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(153,153,153, .67)'))
             }
           }),
           appearance: new Cesium.PolylineColorAppearance()
