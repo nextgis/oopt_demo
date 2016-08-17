@@ -1,5 +1,4 @@
 #   SETTINGS
-
 geodata = [
     { name: "np", path: "ndata/dv/np-dv.topojson", color: "#d8b366"},
     { name: "zp", path: "ndata/dv/zp-dv.topojson", color: "#7ab342"}
