@@ -58,7 +58,12 @@
     font-style: normal;
 }
 
+html,body{
+    height: 100%;
+}
+
 body{
+    position: relative;
     font-size: 13px;
     font-family: "Open Sans", sans-serif;
     letter-spacing: .4px;
@@ -74,6 +79,7 @@ body{
 
     overflow: hidden;
 
+    min-width: 1100px;
 }
 
 h2{
@@ -163,6 +169,7 @@ h2{
     margin: 0;
     overflow: hidden;
     padding: 0;
+    transition: transform .8s;
 }
 .cesium-viewer-toolbar{
     display: none;
@@ -383,6 +390,8 @@ video{
     font-size: 16px;
     letter-spacing: .8px;
     color: #584310;
+    opacity: 1;
+    transition: opacity .8s;
 }
     .legend__item{
         position: relative;
@@ -428,6 +437,13 @@ video{
     box-shadow:         0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 1300px){
+    .title{
+        font-size: 20px;
+        padding: 20px 24px;
+    }
+}
+
 /* Logo */
 .logo{
     position: absolute;
@@ -437,11 +453,14 @@ video{
     border-radius: 4px;
     padding: 14px 18px;
     background: rgba(255,255,255,.82);
+    opacity: 1;
+    transition: opacity .8s;
 }
     .logo__pic{
         vertical-align: middle;
         width: 100px;
     }
+
     .logo__text{
         font-size: 18px;
         text-transform: uppercase;
@@ -453,15 +472,158 @@ video{
         color: #584310
     }
 
+@media (max-width: 1300px){
+    .logo{
+        padding: 12px 16px;
+    }
+        .logo__pic{
+            width: 75px;
+        }
+        .logo__text{
+            font-size: 14px;
+            line-height: 1.5;
+        }
+}
+
+/* Info box */
+
+.info-box{
+    width: 50%;
+    position: absolute;
+    right: -50%;
+    top: 0;
+    background: #fff;
+    padding: 0 40px 30px;
+    height: 100%;
+    overflow-x: hidden;    
+    overflow-y: auto;
+    box-sizing: border-box;
+    transition: right .8s;
+    -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),  0 6px 30px 5px rgba(0, 0, 0, 0.12),  0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:    0 16px 24px 2px rgba(0, 0, 0, 0.14),  0 6px 30px 5px rgba(0, 0, 0, 0.12),  0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    box-shadow:         0 16px 24px 2px rgba(0, 0, 0, 0.14),  0 6px 30px 5px rgba(0, 0, 0, 0.12),  0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+    .info-box__close{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        text-decoration: none;      
+        font-size: 40px;
+        color: #999;
+        width: 52px;
+        height: 52px;
+        text-align: center;
+        line-height: 52px;
+    }
+
+    .info-box__close:hover{
+        color: #212121;
+    }
+
+    .info-box__title{
+        margin: 0;
+        padding: 25px 30px 28px 0;
+    }
+
+    .info-box__gallery{
+        background-color: #f5f5f5;
+        margin: 0 -40px;
+    }
+        .info-box__gallery img{
+            max-width: 100%;
+        }
+
+    .info-box__data{
+        margin-top: 30px;
+        font-size: 16px;
+        display: table;
+    }
+
+        .info-box__data__item{
+            display: table-row;
+        }
+            .info-box__data__value,
+            .info-box__data__term{
+                display: table-cell;
+                padding-top: 10px;
+            }
+
+            .info-box__data__term{
+                color: #888;
+            }
+
+            .info-box__data__value{
+                padding-left: 16px;
+            }
+
+            .info-box__data__item:first-child .info-box__data__value,
+            .info-box__data__item:first-child .info-box__data__term{
+                padding-top:0;
+            }
+
+
+.show-info #cesiumContainer{
+    transform: translate(-25%, 0);
+}
+
+.show-info .legend,
+.show-info .logo{
+    opacity: 0;
+}
+
+.show-info .info-box{
+    right:0;
+}
 
 
 
+/* Custom fotorama */
 
+.fotorama__wrap--css3 .fotorama__arr,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr{
+    transform: translate3d(0,0,0);
+    opacity: .6;
+    background:  none;
+    width: 64px;
+    height:64px;
+    margin-top: -32px;
+}
 
+.fotorama--one-image .fotorama__pointer{
+    cursor: default !important;
+}
 
+.fotorama__wrap--css3 .fotorama__arr.fotorama__arr--disabled,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr.fotorama__arr--disabled{
+    display: none;
+}
 
+.fotorama__wrap--css3 .fotorama__arr--next:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next:before,
+.fotorama__wrap--css3 .fotorama__arr--prev:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev:before{
+    font-family: fontello;
+    font-size: 64px;
+    color: #fff;
+}
 
+.fotorama__wrap--css3 .fotorama__arr--next,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next{
+    right: -7px;
+}
 
+.fotorama__wrap--css3 .fotorama__arr--prev,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev{
+    left: -7px;
+}
 
+.fotorama__wrap--css3 .fotorama__arr--next:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next:before{
+    content: '\e809';  
+}
 
-
+.fotorama__wrap--css3 .fotorama__arr--prev:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev:before{
+    content: '\e80a';  
+}

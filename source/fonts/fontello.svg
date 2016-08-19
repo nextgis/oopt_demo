@@ -17,6 +17,16 @@
 <glyph glyph-name="photo_camera" unicode="&#xe804;" d="M500 141c115 0 209 94 209 209s-94 209-209 209-209-94-209-209 94-209 209-209z m-125 625h250l76-82h133c45 0 82-39 82-84v-500c0-45-37-84-82-84h-668c-45 0-82 39-82 84v500c0 45 37 84 82 84h133z m-8-416c0 74 59 133 133 133s133-59 133-133-59-133-133-133-133 59-133 133z" horiz-adv-x="1000" />
 
 <glyph glyph-name="videocam" unicode="&#xe805;" d="M709 413l166 166v-457l-166 166v-147c0-23-19-41-43-41h-500c-23 0-41 18-41 41v418c0 23 18 41 41 41h500c24 0 43-18 43-41v-146z" horiz-adv-x="1000" />
+
+<glyph glyph-name="arrow_forward" unicode="&#xe806;" d="M500 684l334-334-334-334-59 59 233 234h-508v82h508l-233 234z" horiz-adv-x="1000" />
+
+<glyph glyph-name="arrow_back" unicode="&#xe807;" d="M834 391v-82h-508l233-234-59-59-334 334 334 334 59-59-233-234h508z" horiz-adv-x="1000" />
+
+<glyph glyph-name="close" unicode="&#xe808;" d="M791 582l-232-232 232-232-59-59-232 232-232-232-59 59 232 232-232 232 59 59 232-232 232 232z" horiz-adv-x="1000" />
+
+<glyph glyph-name="keyboard_arrow_right" unicode="&#xe809;" d="M357 168l192 192-192 191 59 59 250-250-250-250z" horiz-adv-x="1000" />
+
+<glyph glyph-name="keyboard_arrow_left" unicode="&#xe80a;" d="M643 180l-59-58-250 250 250 250 59-59-192-191z" horiz-adv-x="1000" />
 </font>
 </defs>
 </svg>
