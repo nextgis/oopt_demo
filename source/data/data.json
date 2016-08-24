@@ -74,7 +74,7 @@
             "id": "1011",
             "images": 15,
             "video": true,
-            "url": "http://www.bolonsky.ru"
+            "url": "http://www.zapovedamur.ru"
         },
 		{            
 		    "id": "1012",
@@ -86,7 +86,7 @@
             "id": "1013",
             "images": 15,
             "video": true,
-            "url": "http://bhz.khv.ru"
+            "url": "http://www.zapovedamur.ru"
         },
 		{
             "id": "1014",
@@ -96,7 +96,7 @@
         },
 		{            
 		    "id": "1015",
-            "images": 17,
+            "images": 15,
             "video": true,
             "url": "http://заповедник-ботчинский.рф"
 		},
@@ -259,7 +259,7 @@
             "id": "1042",
             "images": 10,
             "video": true,
-            "url": "http://kedrpad.dvo.ru"
+            "url": "http://leopard-land.ru"
         },
         {
             "id": "1043",
@@ -501,7 +501,7 @@
             "route_images": 3,
             "invest": true,
             "invest_images": 13,
-            "url": "http://сиалинь.рф"
+            "url": "http://www.sikhote-zap.ru"
         },
         {
             "id": "1080",
@@ -889,7 +889,7 @@
         },
         {
             "id": "2044",
-            "images": 11,
+            "images": 9,
             "video": true,
             "url": "http://leopard-land.ru"
         },
@@ -942,7 +942,7 @@
         {
             "id": "3002",
             "images": 0,
-            "url": ""
+            "url": "http://www.zapovedamur.ru"
         },
         {
             "id": "3003",
@@ -1112,7 +1112,7 @@
         {
             "id": "3036",
             "images": 0,
-            "url": ""
+            "url": "http://www.zapovedamur.ru"
         },
         {
             "id": "3037",
@@ -1227,7 +1227,7 @@
         {
             "id": "3059",
             "images": 0,
-            "url": ""
+            "url": "http://www.zapovedamur.ru"
         },
         {
             "id": "3060",
