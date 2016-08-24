@@ -394,33 +394,11 @@ $('.popup_menu').on('click', (e)->
     e.stopPropagation()
 )
 
-$('.popup_menu .info').on('click', (e)->
+$("[data-target]").on('click', (e)->
     e.preventDefault()
-    open_popup($('.popup .info'))
+    if (!$(this).hasClass("disabled"))
+        open_popup($(this).data("target"))
 )
-
-is_video_enable = true
-$('.popup_menu .video').on('click', (e)->
-    e.preventDefault()
-    if is_video_enable
-        open_popup($('.popup .video'))
-)
-
-is_photo_enable = true
-$('.popup_menu .photo').on('click', (e)->
-    e.preventDefault()
-    if is_photo_enable
-        open_popup($('.popup .photo'))
-)
-
-$('.popup_menu .web').on('click', (e)->
-    e.preventDefault()
-    open_popup($('.popup .web'))
-)
-
-
-
-
 
 #
 #       O P E N   M E N U
@@ -449,6 +427,7 @@ open_menu = ()->
 close_menu = ()->
     $('.left_menu div').removeClass('selected_item')
     $('.info-panel').addClass("info-panel--hidden")
+    close_popup()
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(false)
@@ -460,20 +439,26 @@ $(document).on('click', ()->
         close_menu())
 
 open_popup = (target)->
+    targetPanel = $(".popup__panel--" + target)
     $('.popup:hidden').fadeIn()
     $('.popup__panel').hide()
+
     if (!$('video')[0].paused)
         $('video')[0].pause()
-    target.show()
-    if (target.find("video"))
-        target.find("video")[0].currentTime = 0
-        target.find("video")[0].play()
+
+    targetPanel.show()
+
+    if (target == "video")
+            $('video')[0].play()
+
+close_popup = ()->    
+    $('.popup').fadeOut()
+    if (!$('video')[0].paused)
+        $('video')[0].pause()
 
 $('.close_popup').on('click', (e)->
-    $('.popup').hide()
-    if (!$('video')[0].paused)
-        $('video')[0].pause()
-    e.stopPropagation()
+    close_popup()
+    e.preventDefault()
 )
 
 #    PHOTO GALLERY
@@ -530,11 +515,11 @@ build_gallery = (_num_images, folder_name, captions)->
     $('.photo_container img').remove()
 
     is_photo_enable = true
-    $('.popup_menu .photo').removeClass("disabled")
+    $('[data-target = photo]').removeClass("disabled")
 
     if _num_images == 0
         is_photo_enable = false
-        $('.popup_menu .photo').addClass("disabled")
+        $('[data-target = photo]').addClass("disabled")
 
     $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
     $('.photo_caption').append($('<span />'))
@@ -550,9 +535,9 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    $('.info iframe').attr('src', 'data/'+_id+'/index.html')
-    $('.info iframe').load( ()->
-        head = $(".info iframe").contents().find("head")
+    $('.popup__panel--info iframe').attr('src', 'data/'+_id+'/index.html')
+    $('.popup__panel--info iframe').load( ()->
+        head = $(".popup__panel--info iframe").contents().find("head")
         head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
     )
 
@@ -564,7 +549,7 @@ build_web = (url)->
 build_video = (_id)->
     is_video_enable = true
 
-    $('.popup_menu .video').removeClass("disabled")
+    $('[data-target = video]').removeClass("disabled")
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
@@ -577,7 +562,7 @@ build_video = (_id)->
     $("video").on("error", ()->
       if $('video').attr('src') == $('video').attr('src-mp4')
           is_video_enable = false
-          $('.popup_menu .video').addClass("disabled")
+          $('[data-target = video]').addClass("disabled")
       else
           $('video').attr('src', $('video').attr('src-mp4'))
     )
