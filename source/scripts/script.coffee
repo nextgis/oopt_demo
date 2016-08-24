@@ -501,11 +501,15 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    $('.info iframe').attr('src', 'data/'+_id+'/index.html')
-    $('.info iframe').load( ()->
-        head = $(".info iframe").contents().find("head")
-        head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
-    )
+    info_url = {"en": "data/"+_id+"/index.html", "ru": "data/"+_id+"/index_ru.html"}[lang]
+    $.ajax({
+        url: info_url,
+        dataType : "html",
+        success: (data, textStatus)->
+            $(".popup__panel.info").html(data)
+        error: ()->
+            $(".popup__panel.info").empty()
+    })
 
 
 build_web = (url)->
