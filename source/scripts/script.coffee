@@ -508,7 +508,7 @@ $('.popup').on('click', (e)->
 prepare_popup = (_id)->
     current_popup_data = {}
     for dta in popups_data
-        if dta.id == _id then current_popup_data = dta
+        if dta.id == "" + _id then current_popup_data = dta
 
 #    ВОТ ТУТ ЗАКОМЕНИТЬ
 #    current_popup_data = popups_data[0]

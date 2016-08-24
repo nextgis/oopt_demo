@@ -508,7 +508,7 @@
     current_popup_data = {};
     for (j = 0, len = popups_data.length; j < len; j++) {
       dta = popups_data[j];
-      if (dta.id === _id) {
+      if (dta.id === "" + _id) {
         current_popup_data = dta;
       }
     }
