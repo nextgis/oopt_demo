@@ -370,7 +370,7 @@ video{
     display: inline-block;
     height: 40px;
     line-height: 40px;
-    background-color: #306799;
+    background-color: #419949;
     padding: 0 24px;
     color: #fff;
     text-decoration: none;
@@ -380,7 +380,7 @@ video{
     border:0;
 }
     .btn:hover{
-        background-color:#144776;
+        background-color:#227d2a;
     }
 
 /* Links */
@@ -446,7 +446,7 @@ video{
     }
 
     .info-panel__more-link:hover + .info-panel__more{
-        background-color:#144776;
+        background-color:#227d2a;
     }
 
     .info-panel__links{
@@ -501,7 +501,7 @@ video{
 
             .info-panel__link__icon{
                 margin-right: 2px;
-                color: #306799;
+                color:#419949;
                 vertical-align: middle;
             }
 
