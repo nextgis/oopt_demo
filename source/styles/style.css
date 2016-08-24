@@ -141,12 +141,17 @@ h2{
 
 .np:before,
 .legend__item--np:before{
-    background-color: rgb(206,153,48);
+    background-color: #a66d61;
 }
 
 .zp:before,
 .legend__item--zp:before{
-    background-color: rgb(140,200,17);
+    background-color: #7ab342;
+}
+
+.fz:before,
+.legend__item--fz:before{    
+    background-color: #d8b366;
 }
 
 #cesiumContainer {
@@ -167,8 +172,8 @@ h2{
 
 .controls{
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
 }
     .controls__item{
         margin-top: 10px;
@@ -317,8 +322,8 @@ video{
 
 .legend{
     position: absolute;
-    top: 10px;
-    left: 210px;
+    bottom: 20px;
+    right: 20px;
     background-color: rgba(0,0,0,.67);
     padding: 10px;
     list-style-type: none;
@@ -330,10 +335,9 @@ video{
     margin:0;
 }
     .legend__item{
-        display: inline-block;
         position: relative;
         padding-left: 24px;
-        margin:2px 0 2px 4px;
+        margin:2px 0;
     }
         .legend__item:before{
             top: 6px;
@@ -346,6 +350,19 @@ video{
 .photo_caption{
     margin-top: 1em;
 }
+
+/* Logo */
+
+.logo{
+    position: absolute;
+    left: 220px;
+    top: 12px;
+}
+    .logo__pic{
+        display: block;
+        width: auto;
+        height: 100px;
+    }
 
 /* Buttons */
 
