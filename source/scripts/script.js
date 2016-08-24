@@ -504,7 +504,7 @@
       "en": "Nature Reserve",
       "ru": "Заповедник"
     }[lang];
-    $('.popup h2').text(selected_polygon_name + " " + second_name);
+    $('.popup__title').text(selected_polygon_name + " " + second_name);
     $('.info-panel__title').text(selected_polygon_name);
     $('.info-panel__subtitle').text(second_name);
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions);

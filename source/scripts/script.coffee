@@ -500,7 +500,7 @@ prepare_popup = (_id)->
 
 
     second_name =  if (oopt[selected_polygon_name][0].isNP) then {"en": "National Park", "ru": "Национальный парк"}[lang] else {"en": "Nature Reserve", "ru": "Заповедник"}[lang]
-    $('.popup h2').text(selected_polygon_name+" "+second_name)
+    $('.popup__title').text(selected_polygon_name+" "+second_name)
     $('.info-panel__title').text(selected_polygon_name)
     $('.info-panel__subtitle').text(second_name)
 

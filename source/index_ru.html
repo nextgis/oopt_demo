@@ -79,7 +79,9 @@
 </div>
 
 <div class="popup" style="display: none">
-    <h2>Название территории</h2>
+    <header class="popup__header">
+        <h2 class="popup__title"></h2>
+    </header>
     <div class="popup__panel popup__panel--info">
         <iframe class="popup__panel__inner" src="info.html" frameborder="0"></iframe>
     </div>
@@ -101,7 +103,7 @@
         <div class="photos_right"><img src="images/img-right.png"> </div>
 
     </div>
-    <img src="images/close.png" class="close_popup">
+    <a href="#" class="popup__close icon-close close_popup"></a>
 </div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
