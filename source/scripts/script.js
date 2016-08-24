@@ -538,15 +538,20 @@
   };
 
   build_info = function(_id) {
-    $('.popup__panel--info iframe').attr('src', 'data/' + _id + '/index.html');
-    return $('.popup__panel--info iframe').load(function() {
-      var head;
-      head = $(".popup__panel--info iframe").contents().find("head");
-      return head.append($("<link/>", {
-        rel: "stylesheet",
-        href: "../info_style.css",
-        type: "text/css"
-      }));
+    var info_url;
+    info_url = {
+      "en": "data/" + _id + "/index.html",
+      "ru": "data/" + _id + "/index_ru.html"
+    }[lang];
+    return $.ajax({
+      url: info_url,
+      dataType: "html",
+      success: function(data, textStatus) {
+        return $(".popup__panel--info").html(data);
+      },
+      error: function() {
+        return $(".popup__panel--info").empty();
+      }
     });
   };
 

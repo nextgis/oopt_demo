@@ -532,11 +532,15 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    $('.popup__panel--info iframe').attr('src', 'data/'+_id+'/index.html')
-    $('.popup__panel--info iframe').load( ()->
-        head = $(".popup__panel--info iframe").contents().find("head")
-        head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
-    )
+    info_url = {"en": "data/"+_id+"/index.html", "ru": "data/"+_id+"/index_ru.html"}[lang]
+    $.ajax({
+        url: info_url,
+        dataType : "html",
+        success: (data, textStatus)->
+            $(".popup__panel--info").html(data)
+        error: ()->
+            $(".popup__panel--info").empty()
+    })
 
 build_video = (_id)->
     is_video_enable = true
