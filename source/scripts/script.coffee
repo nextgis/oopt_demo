@@ -581,29 +581,3 @@ build_video = (_id)->
       else
           $('video').attr('src', $('video').attr('src-mp4'))
     )
-
-
-date = new Date()
-is_globus_moved = false
-
-$(document).on('mouseup', ()->
-    date = new Date()
-    is_globus_moved = true
-)
-check_time = ()->
-    if !is_globus_moved then return
-    if ( (new Date()) - date ) > (5 * 60 * 1000)
-        location.reload()
-
-setInterval(check_time, 1000)
-
-
-
-
-
-
-
-
-
-
-
