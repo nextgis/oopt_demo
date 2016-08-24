@@ -696,7 +696,6 @@
         {
             "id": "2009",
             "images": 35,
-            "video": true,
             "route": true,
             "route_images": 9,
             "url": "http://zov-tigra.ru"
@@ -710,7 +709,6 @@
         {
             "id": "2011",
             "images": 22,
-            "video": true,
             "url": "http://www.kal...lsky-park.ru"
         },
         {
@@ -752,7 +750,6 @@
         {
             "id": "2018",
             "images": 25,
-            "video": true,
             "url": "http://nechkinsky.ru"
         },
         {
@@ -800,7 +797,6 @@
         {
             "id": "2028",
             "images": 26,
-            "video": true,
             "url": "http://parkrusever.ru"
         },
         {
@@ -830,7 +826,6 @@
         {
             "id": "2034",
             "images": 80,
-            "video": true,
             "url": "http://sochinp.ru/category/news/"
         },
         {
@@ -848,13 +843,11 @@
         {
             "id": "2037",
             "images": 14,
-            "video": true,
             "url": "http://www.parkugra.ru"
         },
         {
             "id": "2038",
             "images": 15,
-            "video": true,
             "url": "http://ud-legend.ru"
         },
         {
@@ -901,12 +894,12 @@
         },
         {
             "id": "2046",
-            "images": 0,
+            "images": 20,
             "url": ""
         },
         {
             "id": "2047",
-            "images": 0,
+            "images": 10,
             "url": ""
         },
         {
@@ -921,7 +914,7 @@
         },
         {
             "id": "2050",
-            "images": 0,
+            "images": 4,
             "url": ""
         },
         {
@@ -941,7 +934,7 @@
         },
         {
             "id": "3002",
-            "images": 0,
+            "images": 14,
             "url": "http://www.zapovedamur.ru"
         },
         {
@@ -1066,7 +1059,7 @@
         },
         {
             "id": "3027",
-            "images": 0,
+            "images": 10,
             "url": ""
         },
         {
@@ -1111,12 +1104,12 @@
         },
         {
             "id": "3036",
-            "images": 0,
+            "images": 11,
             "url": "http://www.zapovedamur.ru"
         },
         {
             "id": "3037",
-            "images": 0,
+            "images": 5,
             "url": ""
         },
         {
@@ -1216,7 +1209,7 @@
         },
         {
             "id": "3057",
-            "images": 0,
+            "images": 6,
             "url": ""
         },
         {
@@ -1226,7 +1219,7 @@
         },
         {
             "id": "3059",
-            "images": 0,
+            "images": 10,
             "url": "http://www.zapovedamur.ru"
         },
         {
@@ -1241,12 +1234,12 @@
         },
         {
             "id": "3062",
-            "images": 0,
+            "images": 8,
             "url": ""
         },
         {
             "id": "3063",
-            "images": 0,
+            "images": 2,
             "url": ""
         },
         {
@@ -1266,7 +1259,7 @@
         },
         {
             "id": "3067",
-            "images": 0,
+            "images": 10,
             "url": ""
         },
         {
