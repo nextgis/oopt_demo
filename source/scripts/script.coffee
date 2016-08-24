@@ -507,9 +507,6 @@ prepare_popup = (_id)->
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions)
     build_info(current_popup_data.id)
     build_video(current_popup_data.id)
-    build_web(current_popup_data.url)
-
-
 
 build_gallery = (_num_images, folder_name, captions)->
     $('.photo_container img').remove()
@@ -540,11 +537,6 @@ build_info = (_id)->
         head = $(".popup__panel--info iframe").contents().find("head")
         head.append($("<link/>", { rel: "stylesheet", href: "../info_style.css", type: "text/css" }));
     )
-
-
-build_web = (url)->
-    $('.web iframe').attr('src', url)
-
 
 build_video = (_id)->
     is_video_enable = true
