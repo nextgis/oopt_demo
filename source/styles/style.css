@@ -274,9 +274,16 @@ h2{
             height: 100%;
         }
 
-.popup .info{
-    margin-left: -5px;  
-}
+        .popup__panel.info{
+            padding-right: 16px;
+            overflow: auto;
+        }
+
+        .popup__panel h2{
+            font-size: 22px;
+            margin-bottom: 12px;
+            margin-top: 18px;
+        }
 
 .popup__panel iframe{
     position: absolute;
@@ -439,6 +446,7 @@ video{
     margin-top: 1em;
 }
 
+
 /* Logo */
 
 .logo{
@@ -453,18 +461,31 @@ video{
         height: 128px;
     }
 
+/* Popup Info */
+
+table.info{
+    font-size: 13px;
+}
+table.info th{
+    color: #392622;
+}
+table.info th:first-child,
+table.info td:first-child{
+    width: 25%;
+    padding-left:0;
+}
+
+table.info th,
+table.info td{
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 0 12px 30px;
+    border-top: 1px solid #dedede;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+table.info tr:first-child th,
+table.info tr:first-child td{
+    border-top:0;
+}
