@@ -5,7 +5,9 @@
   settings = {
     home: [147, 60, 6000000.0],
     baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/kosmo"
+    baseMap_en: "../oopt/kosmo",
+    dataPath: "data/",
+    layerPath: "ndata/dv/"
   };
 
   viewer = new Cesium.Viewer('cesiumContainer', {
@@ -85,7 +87,7 @@
   load_np = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/np-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "np-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -112,7 +114,7 @@
   load_fz = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/fz-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "fz-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -137,7 +139,7 @@
   load_zp = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/zp-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "zp-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -162,7 +164,7 @@
   build_events = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/events.geojson").then(function() {
+    return dataSource.load(settings.layerPath + "events.geojson").then(function() {
       var entities, entity, j, len, results;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -184,7 +186,7 @@
   load_borders = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load('ndata/dv/federal_dv.topojson').then(function() {
+    return border_source.load(settings.layerPath + 'federal_dv.topojson').then(function() {
       var b_entities, b_entitiy, j, len, positions;
       b_entities = border_source.entities.values;
       for (j = 0, len = b_entities.length; j < len; j++) {
@@ -211,7 +213,7 @@
   load_regions = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load('ndata/dv/regional_dv.topojson').then(function() {
+    return border_source.load(settings.layerPath + 'regional_dv.topojson').then(function() {
       var b_entities, b_entitiy, j, len, positions, results;
       b_entities = border_source.entities.values;
       results = [];
@@ -252,7 +254,7 @@
     dataImg = [];
     for (i = j = 1, ref = data.num_images; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
       dataImg.push({
-        img: "http://nextgis.com/demo/oopt_rosprirodnadzor/data/events/" + data.id + "/" + i + ".jpg"
+        img: settings.dataPath + "events/" + data.id + "/" + i + ".jpg"
       });
     }
     if (fotorama) {

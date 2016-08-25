@@ -3,7 +3,9 @@
 settings ={
     home: [147, 60, 6000000.0]
     baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/kosmo"
+    baseMap_en: "../oopt/kosmo",
+    dataPath: "data/",
+    layerPath: "ndata/dv/"
 }
 
 viewer = new Cesium.Viewer('cesiumContainer',
@@ -106,7 +108,7 @@ scene.camera.flyTo({
 #    DATA LOADER
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/np-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "np-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -127,7 +129,7 @@ load_np()
 
 load_fz = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/fz-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "fz-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values        
@@ -147,7 +149,7 @@ load_fz = ()->
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/zp-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "zp-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -169,7 +171,7 @@ load_zp = ()->
 build_events = ()->
     dataSource = new Cesium.GeoJsonDataSource()
 
-    dataSource.load("ndata/dv/events.geojson").then( ()->      
+    dataSource.load(settings.layerPath + "events.geojson").then( ()->      
         viewer.dataSources.add(dataSource);
         entities = dataSource.entities.values
 
@@ -187,7 +189,7 @@ build_events = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/dv/federal_dv.topojson').then( ()->
+    border_source.load(settings.layerPath + 'federal_dv.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -212,7 +214,7 @@ load_borders = ()->
 
 load_regions = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/dv/regional_dv.topojson').then( ()->
+    border_source.load(settings.layerPath + 'regional_dv.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -256,7 +258,7 @@ build_info_box = (data)->
 
     dataImg = []
     for i in [1..data.num_images]
-        dataImg.push( {img : "http://nextgis.com/demo/oopt_rosprirodnadzor/data/events/" + data.id + "/" + i + ".jpg"} )
+        dataImg.push( {img : settings.dataPath + "events/" + data.id + "/" + i + ".jpg"} )
 
     if (fotorama)
         fotorama.show( 0 )
@@ -312,14 +314,3 @@ $(".js-closeInfoBox").on("click", (e)->
 $('.home_btn').on('click', ()->
     fly_to_home()
 )
-
-
-
-
-
-
-
-
-
-
-
