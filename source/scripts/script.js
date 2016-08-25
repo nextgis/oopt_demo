@@ -3,7 +3,9 @@
   var add_info_box_data, build_events, build_info_box, circleGeometry, ellipsoid, fly_to_home, handler, hide_info_box, load_borders, load_fz, load_np, load_regions, load_zp, oopt, pole_primitive, primitives, redCircleInstance, scene, settings, show_info_box, viewer;
 
   settings = {
-    home: [147, 60, 6000000.0]
+    home: [147, 60, 6000000.0],
+    baseMap_ru: "../oopt/kosmo",
+    baseMap_en: "../oopt/kosmo"
   };
 
   viewer = new Cesium.Viewer('cesiumContainer', {
@@ -16,7 +18,10 @@
     scene3DOnly: true,
     fullscreenButton: false,
     imageryProvider: Cesium.createOpenStreetMapImageryProvider({
-      url: '../oopt/kosmo',
+      url: {
+        "en": settings.baseMap_en,
+        "ru": settings.baseMap_ru
+      }[lang],
       maximumLevel: 10
     })
   });

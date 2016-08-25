@@ -2,6 +2,8 @@
 
 settings ={
     home: [147, 60, 6000000.0]
+    baseMap_ru: "../oopt/kosmo",
+    baseMap_en: "../oopt/kosmo"
 }
 
 viewer = new Cesium.Viewer('cesiumContainer',
@@ -15,7 +17,7 @@ viewer = new Cesium.Viewer('cesiumContainer',
         scene3DOnly: true,
         fullscreenButton: false,
         imageryProvider: Cesium.createOpenStreetMapImageryProvider({
-          url: '../oopt/kosmo',
+          url: {"en": settings.baseMap_en, "ru": settings.baseMap_ru}[lang],
           maximumLevel: 10
         })
     }
