@@ -15,7 +15,9 @@
   ];
 
   settings = {
-    home: [147, 60, 6000000.0]
+    home: [147, 60, 6000000.0],
+    baseMap_ru: "../oopt/kosmo",
+    baseMap_en: "../oopt/tile_run-bike-hike"
   };
 
   viewer = new Cesium.Viewer('cesiumContainer', {
@@ -27,11 +29,12 @@
     animation: false,
     scene3DOnly: true,
     fullscreenButton: false,
-    imageryProvider: new Cesium.BingMapsImageryProvider({
-      url: 'http://dev.virtualearth.net',
-      key: 'Ail9PAst_7-T0BfqYAZjK4fVngfHJ3Fjg_ckK6eX8ro_xXwH2HcYUr_cJVDanhTV',
-      maximumLevel: 500,
-      mapStyle: Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+    imageryProvider: Cesium.createOpenStreetMapImageryProvider({
+      url: {
+        "en": settings.baseMap_en,
+        "ru": settings.baseMap_ru
+      }[lang],
+      maximumLevel: 10
     })
   });
 
