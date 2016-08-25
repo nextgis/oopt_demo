@@ -4,8 +4,8 @@
 
   settings = {
     home: [147, 60, 6000000.0],
-    baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/kosmo",
+    baseMap_ru: "kosmo",
+    baseMap_en: "kosmo",
     dataPath: "data/",
     layerPath: "ndata/dv/"
   };
