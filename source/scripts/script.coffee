@@ -7,7 +7,9 @@ geodata = [
 settings ={
     home: [147, 60, 6000000.0]
     baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/tile_run-bike-hike"
+    baseMap_en: "../oopt/tile_run-bike-hike",
+    dataPath: "data/",
+    layerPath: "ndata/dv/"
 }
 
 viewer = new Cesium.Viewer('cesiumContainer',
@@ -136,7 +138,7 @@ load_geodata =()->
     
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/np-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "np-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -157,7 +159,7 @@ load_np()
 
 load_fz = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/fz-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "fz-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values        
@@ -177,7 +179,7 @@ load_fz = ()->
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/dv/zp-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "zp-dv.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -256,7 +258,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/dv/federal_dv.topojson').then( ()->
+    border_source.load(settings.layerPath + 'federal_dv.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -297,7 +299,7 @@ load_cities = ()->
 
 
 load_popups_data = ()->
-    $.getJSON('data/data.json', (data)->
+    $.getJSON(settings.dataPath + 'data.json', (data)->
         popups_data =  data.data
     )
 
@@ -518,13 +520,13 @@ build_gallery = (_num_images, folder_name, captions)->
         is_photo_enable = false
         $('[data-target = photo]').addClass("disabled")
 
-    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+_num_images+'.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/'+ _num_images + '.jpg') )
     $('.photo_caption').append($('<span />'))
     for i in [1.._num_images]
-        $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/'+i+'.jpg') )
+        $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/' + i + '.jpg') )
         if captions && captions[i-1]
             $('.photo_caption').append($('<span />').html(captions[i-1][lang]))
-    $('.photo_container').append( $('<img>').attr('src', 'data/'+folder_name+'/photo/1.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/1.jpg') )
     $('.photo_container img').fadeOut(50)
     $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50)
@@ -532,7 +534,7 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    info_url = {"en": "data/"+_id+"/index.html", "ru": "data/"+_id+"/index_ru.html"}[lang]
+    info_url = {"en": settings.dataPath + _id + "/index.html", "ru": settings.dataPath + _id + "/index_ru.html"}[lang]
     $.ajax({
         url: info_url,
         dataType : "html",
@@ -549,8 +551,8 @@ build_video = (_id)->
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
-    $('video').attr('src', 'data/'+_id+'/video/1.mov')
-    $('video').attr('src-mp4', 'data/'+_id+'/video/1.mp4')
+    $('video').attr('src', settings.dataPath + _id+'/video/1.mov')
+    $('video').attr('src-mp4', settings.dataPath + _id+'/video/1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 

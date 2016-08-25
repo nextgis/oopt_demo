@@ -17,7 +17,9 @@
   settings = {
     home: [147, 60, 6000000.0],
     baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/tile_run-bike-hike"
+    baseMap_en: "../oopt/tile_run-bike-hike",
+    dataPath: "data/",
+    layerPath: "ndata/dv/"
   };
 
   viewer = new Cesium.Viewer('cesiumContainer', {
@@ -131,7 +133,7 @@
   load_np = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/np-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "np-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -158,7 +160,7 @@
   load_fz = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/fz-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "fz-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -183,7 +185,7 @@
   load_zp = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load("ndata/dv/zp-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "zp-dv.topojson").then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -264,7 +266,7 @@
   load_borders = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load('ndata/dv/federal_dv.topojson').then(function() {
+    return border_source.load(settings.layerPath + 'federal_dv.topojson').then(function() {
       var b_entities, b_entitiy, j, len, positions, results;
       b_entities = border_source.entities.values;
       results = [];
@@ -294,7 +296,7 @@
   };
 
   load_popups_data = function() {
-    return $.getJSON('data/data.json', function(data) {
+    return $.getJSON(settings.dataPath + 'data.json', function(data) {
       return popups_data = data.data;
     });
   };
@@ -524,15 +526,15 @@
       is_photo_enable = false;
       $('[data-target = photo]').addClass("disabled");
     }
-    $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + _num_images + '.jpg'));
+    $('.photo_container').append($('<img>').attr('src', settings.dataPath + folder_name + '/photo/' + _num_images + '.jpg'));
     $('.photo_caption').append($('<span />'));
     for (i = j = 1, ref = _num_images; 1 <= ref ? j <= ref : j >= ref; i = 1 <= ref ? ++j : --j) {
-      $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/' + i + '.jpg'));
+      $('.photo_container').append($('<img>').attr('src', settings.dataPath + folder_name + '/photo/' + i + '.jpg'));
       if (captions && captions[i - 1]) {
         $('.photo_caption').append($('<span />').html(captions[i - 1][lang]));
       }
     }
-    $('.photo_container').append($('<img>').attr('src', 'data/' + folder_name + '/photo/1.jpg'));
+    $('.photo_container').append($('<img>').attr('src', settings.dataPath + folder_name + '/photo/1.jpg'));
     $('.photo_container img').fadeOut(50);
     $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50);
@@ -543,8 +545,8 @@
   build_info = function(_id) {
     var info_url;
     info_url = {
-      "en": "data/" + _id + "/index.html",
-      "ru": "data/" + _id + "/index_ru.html"
+      "en": settings.dataPath + _id + "/index.html",
+      "ru": settings.dataPath + _id + "/index_ru.html"
     }[lang];
     return $.ajax({
       url: info_url,
@@ -565,8 +567,8 @@
     video_parent = $('video').parent();
     $('video').remove();
     video_parent.append('<video class="popup__panel__inner"></video>');
-    $('video').attr('src', 'data/' + _id + '/video/1.mov');
-    $('video').attr('src-mp4', 'data/' + _id + '/video/1.mp4');
+    $('video').attr('src', settings.dataPath + _id + '/video/1.mov');
+    $('video').attr('src-mp4', settings.dataPath + _id + '/video/1.mp4');
     $('video').attr('preload', 'metadata');
     $('video').attr('controls', 'true');
     return $("video").on("error", function() {
