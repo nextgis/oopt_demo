@@ -169,6 +169,9 @@ h2{
     margin: 0;
     overflow: hidden;
     padding: 0;
+    -webkit-transition: -webkit-transform .8s;
+    -moz-transition: -moz-transform .8s;
+    -o-transition: -o-transform .8s;
     transition: transform .8s;
 }
 .cesium-viewer-toolbar{
@@ -181,6 +184,10 @@ h2{
     position: absolute;
     top: 50%;
     left: 20px;
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
     transform: translate(0, -50%);
 }
     .controls__item{
@@ -391,6 +398,9 @@ video{
     letter-spacing: .8px;
     color: #584310;
     opacity: 1;
+    -webkit-transition: opacity .8s;
+    -moz-transition: opacity .8s;
+    -o-transition: opacity .8s;
     transition: opacity .8s;
 }
     .legend__item{
@@ -454,6 +464,9 @@ video{
     padding: 14px 18px;
     background: rgba(255,255,255,.82);
     opacity: 1;
+    -webkit-transition: opacity .8s;
+    -moz-transition: opacity .8s;
+    -o-transition: opacity .8s;
     transition: opacity .8s;
 }
     .logo__pic{
@@ -498,6 +511,9 @@ video{
     overflow-x: hidden;    
     overflow-y: auto;
     box-sizing: border-box;
+    -webkit-transition: right .8s;
+    -moz-transition: right .8s;
+    -o-transition: right .8s;
     transition: right .8s;
     -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),  0 6px 30px 5px rgba(0, 0, 0, 0.12),  0 8px 10px -5px rgba(0, 0, 0, 0.2);
     -moz-box-shadow:    0 16px 24px 2px rgba(0, 0, 0, 0.14),  0 6px 30px 5px rgba(0, 0, 0, 0.12),  0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -564,6 +580,10 @@ video{
 
 
 .show-info #cesiumContainer{
+    -webkit-transform: translate(-25%, 0);
+    -moz-transform: translate(-25%, 0);
+    -ms-transform: translate(-25%, 0);
+    -o-transform: translate(-25%, 0);
     transform: translate(-25%, 0);
 }
 
@@ -582,6 +602,10 @@ video{
 
 .fotorama__wrap--css3 .fotorama__arr,
 .fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr{
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
     opacity: .6;
     background:  none;
