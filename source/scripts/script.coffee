@@ -1,5 +1,13 @@
 #   SETTINGS
 
+settings ={
+    home: [85, 60, 10000000.0]
+    baseMap_ru: "tile_run-bike-hike",
+    baseMap_en: "tile_run-bike-hike",
+    dataPath: "data/",
+    layerPath: "ndata/"
+}
+
 viewer = new Cesium.Viewer('cesiumContainer',
     {
         timeline: false,
@@ -11,7 +19,7 @@ viewer = new Cesium.Viewer('cesiumContainer',
         scene3DOnly: true,
         fullscreenButton: false,
         imageryProvider: Cesium.createOpenStreetMapImageryProvider({
-          url: '../oopt/tile_run-bike-hike',
+          url: {"en": settings.baseMap_en, "ru": settings.baseMap_ru}[lang],
           maximumLevel: 10
         })
     }
@@ -90,13 +98,13 @@ viewer.homeButton.viewModel.command.beforeExecute.addEventListener(
 
 fly_to_Russia = ()->
     scene.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
+        destination: Cesium.Cartesian3.fromDegrees(settings.home[0], settings.home[1], settings.home[2]),
         duration: 3
     })
 
 #   CAMERA ON RUSSIAN AT START
 scene.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
+    destination: Cesium.Cartesian3.fromDegrees(settings.home[0], settings.home[1], settings.home[2]),
     duration: 0
 });
 
@@ -104,11 +112,11 @@ scene.camera.flyTo({
 #    DATA LOADER
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/np.topojson").then( ()->
+    dataSource.load(settings.layerPath + "np.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
-        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
+        mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(185, 132, 121,.87)') );
         for entity in entities
             if entity.polygon
                 entity.polygon.material = mat_property;
@@ -125,7 +133,7 @@ load_np()
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load("ndata/zp.topojson").then( ()->
+    dataSource.load(settings.layerPath + "zp.topojson").then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -200,7 +208,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load('ndata/russia-bnd.topojson').then( ()->
+    border_source.load(settings.layerPath + 'russia-bnd.topojson').then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -241,7 +249,7 @@ load_cities = ()->
 
 
 load_popups_data = ()->
-    $.getJSON('../oopt/data/data.json', (data)->
+    $.getJSON(settings.dataPath + 'data.json', (data)->
         popups_data =  data.data
     )
 
@@ -310,7 +318,7 @@ cities = [
 #    HOME BTN CLICK
 $('.home_btn').on('click', ()->
     scene.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(85, 60, 10000000.0),
+        destination: Cesium.Cartesian3.fromDegrees(settings.home[0], settings.home[1], settings.home[2]),
         duration: 3
     });
 )
@@ -485,13 +493,14 @@ build_gallery = (_num_images, folder_name, captions)->
         $('.popup_menu .photo').css('opacity', 0.5)
         $('.popup_menu .photo').text({"en": "No Photo", "ru": "Нет Фото"}[lang])
 
-    $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/'+_num_images+'.jpg') )
+
+    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/'+ _num_images + '.jpg') )
     $('.photo_caption').append($('<span />'))
     for i in [1.._num_images]
-        $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/'+i+'.jpg') )
+        $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/' + i + '.jpg') )
         if captions && captions[i-1]
             $('.photo_caption').append($('<span />').html(captions[i-1][lang]))
-    $('.photo_container').append( $('<img>').attr('src', '../oopt/data/'+folder_name+'/photo/1.jpg') )
+    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/1.jpg') )
     $('.photo_container img').fadeOut(50)
     $('.photo_caption span').fadeOut(50);
     $('.photo_container img').eq(showed_image).fadeIn(50)
@@ -499,7 +508,7 @@ build_gallery = (_num_images, folder_name, captions)->
     num_images = _num_images
 
 build_info = (_id)->
-    info_url = {"en": "../oopt/data/"+_id+"/index.html", "ru": "../oopt/data/"+_id+"/index_ru.html"}[lang]
+    info_url = {"en": settings.dataPath + _id + "/index.html", "ru": settings.dataPath + _id + "/index_ru.html"}[lang]
     $.ajax({
         url: info_url,
         dataType : "html",
@@ -521,8 +530,8 @@ build_video = (_id)->
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
-    $('video').attr('src', '../oopt/data/'+_id+'/video/1.mov')
-    $('video').attr('src-mp4', '../oopt/data/'+_id+'/video/1.mp4')
+    $('video').attr('src', settings.dataPath + _id+'/video/1.mov')
+    $('video').attr('src-mp4', settings.dataPath + _id+'/video/1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
