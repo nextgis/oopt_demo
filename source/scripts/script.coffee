@@ -205,6 +205,31 @@ load_borders = ()->
                 }),
                 appearance : new Cesium.PolylineColorAppearance()
             }))
+        load_regions() 
+    )
+
+load_regions = ()->
+    border_source = new Cesium.GeoJsonDataSource()
+    border_source.load('ndata/dv/regional_dv.topojson').then( ()->
+
+        b_entities = border_source.entities.values;
+
+        for b_entitiy in b_entities
+            positions =  b_entitiy.polygon.hierarchy.getValue().positions
+
+            primitives.add(new Cesium.Primitive({
+                geometryInstances : new Cesium.GeometryInstance({
+                    geometry : new Cesium.PolylineGeometry({
+                        positions : positions,
+                        width : 1.0,
+                        vertexFormat : Cesium.PolylineColorAppearance.VERTEX_FORMAT
+                    }),
+                    attributes: {
+                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color.fromCssColorString('rgba(153,153,153, .67)'))
+                    }
+                }),
+                appearance : new Cesium.PolylineColorAppearance()
+            }))
     )
 
 
