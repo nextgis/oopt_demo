@@ -104,6 +104,20 @@ scene.camera.flyTo({
     duration: 0
 });
 
+#   NORTH ORIENTATION
+
+to_north = ()->
+    scene.camera.setView({
+        orientation: {
+            heading : 0.0,
+            pitch : -Cesium.Math.PI_OVER_TWO,
+            roll : 0.0
+        }
+    })
+
+$(".to_north_btn").on("click", ()->
+    to_north()
+)
 
 #    DATA LOADER
 load_np = ()->
