@@ -138,7 +138,7 @@ load_geodata =()->
     
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load(settings.layerPath + "np-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "np-dv.topojson", {clampToGround: true}).then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -159,7 +159,7 @@ load_np()
 
 load_fz = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load(settings.layerPath + "fz-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "fz-dv.topojson", {clampToGround: true}).then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values        
@@ -179,7 +179,7 @@ load_fz = ()->
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load(settings.layerPath + "zp-dv.topojson").then( ()->
+    dataSource.load(settings.layerPath + "zp-dv.topojson", {clampToGround: true}).then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -258,7 +258,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load(settings.layerPath + 'federal_dv.topojson').then( ()->
+    border_source.load(settings.layerPath + 'federal_dv.topojson', {clampToGround: true}).then( ()->
 
         b_entities = border_source.entities.values;
 
