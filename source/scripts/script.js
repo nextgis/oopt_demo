@@ -101,7 +101,9 @@
   load_np = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load(settings.layerPath + "np-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "np-dv.topojson", {
+      clampToGround: true
+    }).then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -128,7 +130,9 @@
   load_fz = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load(settings.layerPath + "fz-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "fz-dv.topojson", {
+      clampToGround: true
+    }).then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -153,7 +157,9 @@
   load_zp = function() {
     var dataSource;
     dataSource = new Cesium.GeoJsonDataSource();
-    return dataSource.load(settings.layerPath + "zp-dv.topojson").then(function() {
+    return dataSource.load(settings.layerPath + "zp-dv.topojson", {
+      clampToGround: true
+    }).then(function() {
       var entities, entity, j, len, mat_property;
       viewer.dataSources.add(dataSource);
       entities = dataSource.entities.values;
@@ -200,7 +206,9 @@
   load_borders = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load(settings.layerPath + 'federal_dv.topojson').then(function() {
+    return border_source.load(settings.layerPath + 'federal_dv.topojson', {
+      clampToGround: true
+    }).then(function() {
       var b_entities, b_entitiy, j, len, positions;
       b_entities = border_source.entities.values;
       for (j = 0, len = b_entities.length; j < len; j++) {
@@ -227,7 +235,9 @@
   load_regions = function() {
     var border_source;
     border_source = new Cesium.GeoJsonDataSource();
-    return border_source.load(settings.layerPath + 'regional_dv.topojson').then(function() {
+    return border_source.load(settings.layerPath + 'regional_dv.topojson', {
+      clampToGround: true
+    }).then(function() {
       var b_entities, b_entitiy, j, len, positions, results;
       b_entities = border_source.entities.values;
       results = [];
