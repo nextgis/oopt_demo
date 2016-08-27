@@ -74,6 +74,16 @@ scene = viewer.scene;
 primitives = scene.primitives;
 oopt = {}
 
+ooptLabel = {
+    fillColor : Cesium.Color.fromCssColorString('rgba(0,0,0,.7)'),
+    font: '57px Helvetica',
+    outlineColor: Cesium.Color.fromCssColorString('rgba(255,255,255,.5)'),
+    outlineWidth: 12.0,
+    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+    scale: 0.27,
+    translucencyByDistance: new Cesium.NearFarScalar(2.0e6, 1.0, 3.5e6, 0.0)
+}
+
 #   FULLSCREEN
 $('.fullscreen_btn').click(()->
     if $.fullscreen.isFullScreen()
@@ -120,6 +130,25 @@ $(".to_north_btn").on("click", ()->
 )
 
 #    DATA LOADER
+set_poligon_property = (entity, material)->
+    
+    entity.polygon.material = material
+    entity.polygon.outline = new Cesium.ConstantProperty(false)
+
+    if !oopt[entity.properties["Name_" + lang]]
+        oopt[entity.properties["Name_" + lang]] = []
+    oopt[entity.properties["Name_" + lang]].push(entity)
+    oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
+
+    positions = entity.polygon.hierarchy['_value'].positions
+    center = Cesium.BoundingSphere.fromPoints(positions).center
+    Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(center, center)
+    entity.position = new Cesium.ConstantPositionProperty(center)
+
+    if (oopt[entity.properties["Name_" + lang]].length == 1)
+        entity.label = new Cesium.LabelGraphics(ooptLabel)
+        entity.label.text = entity.properties["Name_" + lang]
+    
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
     dataSource.load(settings.layerPath + "np-dv.topojson", {clampToGround: true}).then( ()->
@@ -129,13 +158,8 @@ load_np = ()->
         mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(185, 132, 121,.87)') );
         for entity in entities
             if entity.polygon
-                entity.polygon.material = mat_property;
-                entity.polygon.outline = new Cesium.ConstantProperty(false);
                 entity.isNP = true
-                if !oopt[entity.properties["Name_" + lang]]
-                    oopt[entity.properties["Name_" + lang]] = []
-                oopt[entity.properties["Name_" + lang]].push(entity)
-                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
+                set_poligon_property(entity, mat_property)
 
         load_fz()
     )
@@ -150,13 +174,8 @@ load_fz = ()->
         mat_property = new Cesium.ColorMaterialProperty( new Cesium.Color.fromCssColorString('rgba(208,177,125, .87)') );
         for entity in entities
             if entity.polygon
-                entity.polygon.material = mat_property;
-                entity.polygon.outline = new Cesium.ConstantProperty(false);
                 entity.isFZ = true
-                if !oopt[entity.properties["Name_" + lang]]
-                    oopt[entity.properties["Name_" + lang]] = []
-                oopt[entity.properties["Name_" + lang]].push(entity)
-                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
+                set_poligon_property(entity, mat_property)
 
         load_zp()
     )
@@ -170,14 +189,8 @@ load_zp = ()->
         mat_property = new Cesium.ColorMaterialProperty(new Cesium.Color.fromCssColorString('rgba(105,131,40, .87)'))
         for entity in entities
             if entity.polygon
-                entity.polygon.material = mat_property
-                entity.polygon.outline = new Cesium.ConstantProperty(false)
                 entity.isZP = true
-                if !oopt[entity.properties["Name_" + lang]]
-                    oopt[entity.properties["Name_" + lang]] = []
-                oopt[entity.properties["Name_" + lang]].push(entity)
-                oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
-                # console.log entity.properties.ids_ID
+                set_poligon_property(entity, mat_property)
 
         build_events()
     )
