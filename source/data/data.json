@@ -694,8 +694,14 @@
             "url": "http://www.npzabaikalsky.ru"
         },
         {
+            "id": "2008",
+            "images": 0,
+            "video": true,
+            "url": "http://www.konakovo.org/goskompleks-zavidovo/"
+        },
+        {
             "id": "2009",
-            "images": 35,
+            "images": 36,
             "route": true,
             "route_images": 9,
             "url": "http://zov-tigra.ru"
@@ -709,13 +715,13 @@
         {
             "id": "2011",
             "images": 22,
-            "url": "http://www.kal...lsky-park.ru"
+            "url": "http://kalevalsky-park.ru"
         },
         {
             "id": "2012",
             "images": 17,
             "video": true,
-            "url": "http:www.kenozero.ru/"
+            "url": "http://www.kenozero.ru"
         },
         {
             "id": "2013",
@@ -777,6 +783,12 @@
             "url": "http://plesheevo-lake.ru"
         },
         {
+            "id": "2023",
+            "images": 0,
+            "video": true,
+            "url": "http://baikal-1.ru"
+        },
+        {
             "id": "2024",
             "images": 12,
             "video": true,
@@ -796,8 +808,14 @@
         },
         {
             "id": "2028",
-            "images": 26,
+            "images": 28,
             "url": "http://parkrusever.ru"
+        },
+        {
+            "id": "2029",
+            "images": 0,
+            "video": true,
+            "url": "http://www.sailugem.ru"
         },
         {
             "id": "2030",
@@ -882,7 +900,7 @@
         },
         {
             "id": "2044",
-            "images": 9,
+            "images": 11,
             "video": true,
             "url": "http://leopard-land.ru"
         },
