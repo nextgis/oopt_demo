@@ -141,7 +141,7 @@ scene.camera.flyTo({
 #    DATA LOADER
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load(settings.layerPath + "np.topojson").then( ()->
+    dataSource.load(settings.layerPath + "np.topojson", {clampToGround: true}).then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -155,14 +155,13 @@ load_np = ()->
                     oopt[entity.properties["Name_" + lang]] = []
                 oopt[entity.properties["Name_" + lang]].push(entity)
                 oopt[entity.properties["Name_" + lang]]._id = entity.properties.ids_ID
-
         load_zp()
     )
 load_np()
 
 load_zp = ()->
     dataSource = new Cesium.GeoJsonDataSource()
-    dataSource.load(settings.layerPath + "zp.topojson").then( ()->
+    dataSource.load(settings.layerPath + "zp.topojson", {clampToGround: true}).then( ()->
         viewer.dataSources.add(dataSource)
 
         entities = dataSource.entities.values
@@ -237,7 +236,7 @@ build_pups = ()->
 
 load_borders = ()->
     border_source = new Cesium.GeoJsonDataSource()
-    border_source.load(settings.layerPath + 'russia-bnd.topojson').then( ()->
+    border_source.load(settings.layerPath + 'russia-bnd.topojson', {clampToGround: true}).then( ()->
 
         b_entities = border_source.entities.values;
 
@@ -575,7 +574,6 @@ build_video = (_id)->
           $('video').attr('src', $('video').attr('src-mp4'))
     )
 
-
 date = new Date()
 is_globus_moved = false
 
@@ -589,14 +587,5 @@ check_time = ()->
         location.reload()
 
 setInterval(check_time, 1000)
-
-
-
-
-
-
-
-
-
 
 
