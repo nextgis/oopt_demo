@@ -148,6 +148,24 @@ set_poligon_property = (entity, material)->
     if (oopt[entity.properties["Name_" + lang]].length == 1)
         entity.label = new Cesium.LabelGraphics(ooptLabel)
         entity.label.text = entity.properties["Name_" + lang]
+
+combine_geometry_by_field = (entities, field)->
+    multyObjects = []
+    for entity in entities
+        if !multyObjects[entity.properties[field]]
+            multyObjects[entity.properties[field]] = []
+        multyObjects[entity.properties[field]].push(entity)
+        
+    return multyObjects
+
+get_multy_center = (array)->    
+    _points = []
+
+    for polygon in array
+        _points = _points.concat( polygon.polygon.hierarchy.getValue().positions )
+    center = Cesium.BoundingSphere.fromPoints(_points).center
+    Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(center, center)
+    return center
     
 load_np = ()->
     dataSource = new Cesium.GeoJsonDataSource()
@@ -261,6 +279,23 @@ load_regions = ()->
                 }),
                 appearance : new Cesium.PolylineColorAppearance()
             }))
+
+        multyObjects = combine_geometry_by_field(b_entities,"osm_id")
+ 
+        for key of multyObjects            
+            item = multyObjects[key]
+            center = get_multy_center(item)
+            viewer.entities.add({
+                position : center,
+                label : {
+                    text: item[0].properties.name,
+                    fillColor : Cesium.Color.fromCssColorString('rgba(60, 83, 48, 0.5)'),
+                    font: '60px Helvetica',
+                    style: Cesium.LabelStyle.FILL,
+                    scale: 0.28,
+                    translucencyByDistance: new Cesium.NearFarScalar(7.0e6, 1.0, 8e6, 0.0)
+                }
+            })
     )
 
 
