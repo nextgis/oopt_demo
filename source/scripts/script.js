@@ -543,13 +543,24 @@
       }
     }
     check_buttons();
-    second_name = oopt[selected_polygon_name][0].isNP ? {
-      "en": "National Park",
-      "ru": "Национальный парк"
-    }[lang] : {
-      "en": "Nature Reserve",
-      "ru": "Заповедник"
-    }[lang];
+    if (oopt[selected_polygon_name][0].isNP) {
+      second_name = {
+        "en": "National Park",
+        "ru": "Национальный парк"
+      }[lang];
+    }
+    if (oopt[selected_polygon_name][0].isZP) {
+      second_name = {
+        "en": "Nature Reserve",
+        "ru": "Заповедник"
+      }[lang];
+    }
+    if (oopt[selected_polygon_name][0].isFZ) {
+      second_name = {
+        "en": "Federal reserve",
+        "ru": "Заказник"
+      }[lang];
+    }
     $('.popup__title').text(selected_polygon_name + " " + second_name);
     $('.info-panel__title').text(selected_polygon_name);
     $('.info-panel__subtitle').text(second_name);
