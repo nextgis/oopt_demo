@@ -43,7 +43,17 @@ viewer = new Cesium.Viewer('cesiumContainer',
 #});
 #bing_map = viewer.scene.imageryLayers.addImageryProvider( bing )
 
-
+insertByAjax = (url, container, callback)->
+    $.ajax({
+        url: url,
+        dataType : "html",
+        success: (data, textStatus)->
+            container.html(data)
+            if callback
+                callback()
+        error: ()->
+            container.empty()
+    })
 
 #   NORTH POLE CIRCLE
 circleGeometry = new Cesium.CircleGeometry({
@@ -535,14 +545,7 @@ build_gallery = (_num_images, folder_name, captions)->
 
 build_info = (_id)->
     info_url = {"en": settings.dataPath + _id + "/index.html", "ru": settings.dataPath + _id + "/index_ru.html"}[lang]
-    $.ajax({
-        url: info_url,
-        dataType : "html",
-        success: (data, textStatus)->
-            $(".popup__panel--info").html(data)
-        error: ()->
-            $(".popup__panel--info").empty()
-    })
+    insertByAjax(info_url, $(".popup__panel--info"))
 
 build_video = (_id)->
     is_video_enable = true
