@@ -339,10 +339,6 @@
     }
   });
 
-  $('.popup_menu .web').on('click', function(e) {
-    return open_popup($('.popup .web'));
-  });
-
   open_menu = function() {
     var element, j, len, ref, selected_id;
     selected_id = oopt[selected_polygon_name]._id;

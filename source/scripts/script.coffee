@@ -365,9 +365,9 @@ $('.popup_menu .photo').on('click', (e)->
         open_popup($('.popup .photo'))
 )
 
-$('.popup_menu .web').on('click', (e)->
-    open_popup($('.popup .web'))
-)
+#$('.popup_menu .web').on('click', (e)->
+#    open_popup($('.popup .web'))
+#)
 
 
 

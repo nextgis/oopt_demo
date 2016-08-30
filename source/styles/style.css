@@ -231,6 +231,8 @@ h2{
 .popup_menu .web{
     background-image: url("../images/webbg.png");
     background-repeat: no-repeat;
+    opacity: .5;
+    cursor: default;
 }
 
 .map_selector_fader{
