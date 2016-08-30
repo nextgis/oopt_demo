@@ -573,6 +573,7 @@ p{
 
 table.info{
     font-size: 13px;
+    line-height: 1.4;
 }
 table.info th{
     color: #392622;
@@ -590,8 +591,9 @@ table.info td{
     padding: 10px 0 12px 30px;
     border-top: 1px solid #dedede;
 }
-
-
+table.info tr:first-child th{
+    padding-top:0;
+}
 
 table.info tr:first-child th,
 table.info tr:first-child td{
