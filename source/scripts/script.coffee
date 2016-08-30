@@ -6,8 +6,8 @@ geodata = [
 
 settings ={
     home: [147, 60, 6000000.0]
-    baseMap_ru: "../oopt/kosmo",
-    baseMap_en: "../oopt/tile_run-bike-hike",
+    baseMap_ru: "kosmo",
+    baseMap_en: "tile_run-bike-hike",
     dataPath: "data/",
     layerPath: "ndata/dv/"
 }
