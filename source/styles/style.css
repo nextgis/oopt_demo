@@ -235,11 +235,10 @@ p{
     right:0;
     top:2%;
     width: 750px;
-    height: 480px;
+    height: 558px;
     margin: auto;
     background-color: #ffffff;
     z-index: 1000;
-    padding: 18px 24px 36px;
 
     -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
     -moz-box-shadow:    0 6px 10px 0 rgba(0, 0, 0, 0.14),  0 1px 18px 0 rgba(0, 0, 0, 0.12),  0 3px 5px -1px rgba(0, 0, 0, 0.2);
@@ -261,107 +260,92 @@ p{
     .popup__header{
         position: relative;
         z-index: 2;
+        padding: 15px 24px 16px;
+        border-bottom: 1px solid #efefef;
     }
 
     .popup__title{
         letter-spacing: 1px;
-        padding-bottom: 20px;
         margin:0;
+        line-height: 1.2;
+        font-weight: bold;
     }
+
+    .popup__subtitle{
+        font-size: 18px;
+        line-height: 1.2;
+        color: #419949;
+        margin: 6px 0 0px;
+    }
+        .popup__subtitle--invest,
+        .popup__subtitle--routes{
+            display: none;
+        }
 
     .popup__panel{
         position: relative;
         font-size: 15px;
-        height: 428px;
-        overflow: auto;
+        height: 440px;
+        padding: 20px 24px 36px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        line-height: 1.5;
     }
-         .popup__panel__inner{
-            position: relative;
-            box-sizing: border-box;
-            width: 100%;
-            height: 100%;
+    .popup__panel--withSubtitle{
+        height: 413px;
+    }
+        .popup__panel .fotorama{
+            padding-left: 64px;
+            padding-right: 64px;
+            margin-left: -24px;
+            margin-right: -24px;
         }
-
-        .popup__panel--info{
-            padding-right: 16px;
-        }
-        .popup__panel--photo,
-        .popup__panel--video{
-            overflow: visible;
-        }
-        
+            .popup__panel .fotorama__stage{
+                overflow: visible;
+            }
+            
         .popup__panel--video video{
             width: 100%;
-            height: 424px;
+            height: 434px;
+        }
+
+        .popup__panel__inner{
+            position: relative;
+        }
+
+        .popup__panel__text .main{
+            margin-bottom: 20px;
         }
 
         .popup__panel h2{
-            font-size: 22px;
-            margin-bottom: 12px;
+            font-size: 18px;
+            margin-bottom: 8px;
+            margin-top: 18px;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .popup__panel tr:first-child td h2,
+        .popup__panel h2:first-child{
+            margin-top:0;
+        }
+
+        .popup__panel td h2:first-child{
             margin-top: 18px;
         }
 
-       
+        .popup__panel p:last-child{
+            margin-bottom: 0;
+        }
 
-.popup__panel iframe{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.popup .video iframe{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 800px;
-    height: 525px;
-    overflow: hidden;
-    overflow-x: hidden;
-}
-
-.popup .photo img{
-    float: left;
-}
-
-.photo_container{
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.photo_container img{
-    max-height: 100%;
-    max-width: 100%;
-    margin: auto;
-    position: absolute;
-    left:0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-
-video{
-    width: 700px;
-    height: 380px;
-}
-
-.photos_left,
-.photos_right{
-    position: absolute;
-    top: 50%;
-    margin-top: -150px;
-    cursor: pointer;
-}
-
-.photos_left{
-    left: -20px;
-}
-
-.photos_right{
-    right: -20px;
-}
+        .popup__panel .popup__panel__title{
+            font-weight: normal;
+            text-transform: uppercase;
+            line-height: 1.4;
+            font-size: 16px;
+            margin-bottom: 18px;
+            font-weight: normal;
+        }
 
 .left_menu .selected_item,
 .left_menu .selected_item:hover{
@@ -613,3 +597,63 @@ table.info tr:first-child th,
 table.info tr:first-child td{
     border-top:0;
 }
+
+/* Custom fotorama */
+
+.fotorama__wrap--css3 .fotorama__arr,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr{
+    transform: translate3d(0,0,0);
+    opacity: .6;
+    background:  none;
+    width: 64px;
+    height:100%;
+    top:0;
+    margin-top: 0;
+}
+
+.fotorama--one-image .fotorama__pointer{
+    cursor: default !important;
+}
+
+.fotorama__wrap--css3 .fotorama__arr.fotorama__arr--disabled,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr.fotorama__arr--disabled{
+    display: none;
+}
+
+.fotorama__wrap--css3 .fotorama__arr--next:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next:before,
+.fotorama__wrap--css3 .fotorama__arr--prev:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev:before{
+    position: absolute;
+    top: 50%;
+    margin-top: -32px;
+    font-family: fontello;
+    font-size: 64px;
+    color: #000;
+}
+
+.fotorama__wrap--css3 .fotorama__arr--next,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next{
+    right: -64px;
+}
+
+.fotorama__wrap--css3 .fotorama__arr--prev,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev{
+    left: -64px;
+}
+
+.fotorama__wrap--css3 .fotorama__arr--next:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next:before{
+    content: '\e809';  
+}
+
+.fotorama__wrap--css3 .fotorama__arr--prev:before,
+.fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev:before{
+    content: '\e80a';  
+}
+    .fotorama__wrap--css3 .fotorama__arr--next:hover,
+    .fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--next:hover,
+    .fotorama__wrap--css3 .fotorama__arr--prev:hover,
+    .fotorama__wrap--no-controls.fotorama__wrap--toggle-arrows .fotorama__arr--prev:hover{
+        opacity: .8;
+    }

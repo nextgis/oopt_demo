@@ -9,6 +9,7 @@
     <title></title>
     <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="Cesium/Build/Cesium/Widgets/widgets.css">
+    <link  href="bower_components/fotorama/fotorama.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <script>lang = 'ru';</script>
 </head>
@@ -93,19 +94,8 @@
         <video class="popup__panel__inner" src="data/1008/video/1.mp4" controls  preload="meta"></video>
     </div>
     <div class="popup__panel popup__panel--photo">
-
-        <div class="popup__panel__inner photo_container">
-                <img src="images/temp/1.jpg">
-                <img src="images/temp/2.jpg">
-                <img src="images/temp/3.jpg">
-                <img src="images/temp/4.jpg">
-                <img src="images/temp/5.jpg">
+        <div class="photo-gallery fotorama" data-fit="contain" data-height="440px" data-transition="crossfade" data-auto="false" data-nav="false" data-loop="true"> 
         </div>
-        <div class="photo_caption"></div>
-
-        <div class="photos_left"><img src="images/img-left.png"> </div>
-        <div class="photos_right"><img src="images/img-right.png"> </div>
-
     </div>
     <a href="#" class="popup__close icon-close close_popup"></a>
 </div>
@@ -114,6 +104,7 @@
 <script src="bower_components/jquery.transit/jquery.transit.js"></script>
 <script src="bower_components/jq-fullscreen/release/jquery.fullscreen.min.js"></script>
 <script src="Cesium/Build/Cesium/Cesium.js"></script>
+<script src="bower_components/fotorama/fotorama.js"></script>
 <script src="scripts/script.js"></script>
 </body>
 </html>

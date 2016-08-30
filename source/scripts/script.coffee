@@ -89,6 +89,7 @@ primitives = scene.primitives;
 oopt = {}
 
 popups_data = []
+current_popup_data = {}
 
 selected_polygon_name = ''
 
@@ -420,9 +421,22 @@ $("[data-target]").on('click', (e)->
 #       O P E N   M E N U
 #
 
+check_buttons = ()->
+    $('[data-target = photo], [data-target = video], [data-target = route], [data-target = investment]').removeClass("disabled")
+
+    if current_popup_data.images == 0
+        $('[data-target = photo]').addClass("disabled")
+
+    if !current_popup_data.video
+          $('[data-target = video]').addClass("disabled")
+
+    if !current_popup_data.route
+          $('[data-target = route]').addClass("disabled")
+
+    if !current_popup_data.invest
+          $('[data-target = investment]').addClass("disabled")
 
 open_menu = ()->
-
     selected_id = oopt[selected_polygon_name]._id
     prepare_popup(selected_id)
 
@@ -444,6 +458,7 @@ close_menu = ()->
     $('.left_menu div').removeClass('selected_item')
     $('.info-panel').addClass("info-panel--hidden")
     close_popup()
+    current_popup_data = {}
 
     for element in oopt[selected_polygon_name]
         element.polygon.outline  = new Cesium.ConstantProperty(false)
@@ -465,7 +480,11 @@ open_popup = (target)->
     targetPanel.show()
 
     if (target == "video")
-            $('video')[0].play()
+        $('video')[0].play()
+
+    if (target == "photo")
+        dataImg = get_img(current_popup_data.id, "photo", current_popup_data.images)
+        build_gallery(dataImg, $(".photo-gallery"))
 
 close_popup = ()->    
     $('.popup').fadeOut()
@@ -475,30 +494,6 @@ close_popup = ()->
 $('.close_popup').on('click', (e)->
     close_popup()
     e.preventDefault()
-)
-
-#    PHOTO GALLERY
-showed_image = 1
-num_images = 0
-
-$('.photos_left').on('click', (e)->
-    e.stopPropagation()
-    showed_image--
-    if showed_image <= 0 then showed_image = num_images
-    $('.photo_container img').hide()
-    $('.photo_container img').eq(showed_image).fadeIn()
-    $('.photo_caption span').hide()
-    $('.photo_caption span').eq(showed_image).fadeIn()
-)
-
-$('.photos_right').on('click', (e)->
-    e.stopPropagation()
-    showed_image++
-    if showed_image > num_images then showed_image = 1
-    $('.photo_container img').hide()
-    $('.photo_container img').eq(showed_image).fadeIn()
-    $('.photo_caption span').hide()
-    $('.photo_caption span').eq(showed_image).fadeIn()
 )
 
 $('.popup').on('click', (e)->
@@ -511,41 +506,39 @@ prepare_popup = (_id)->
     for dta in popups_data
         if dta.id == "" + _id then current_popup_data = dta
 
-#    ВОТ ТУТ ЗАКОМЕНИТЬ
-#    current_popup_data = popups_data[0]
-
+    check_buttons()
 
     second_name =  if (oopt[selected_polygon_name][0].isNP) then {"en": "National Park", "ru": "Национальный парк"}[lang] else {"en": "Nature Reserve", "ru": "Заповедник"}[lang]
     $('.popup__title').text(selected_polygon_name+" "+second_name)
     $('.info-panel__title').text(selected_polygon_name)
     $('.info-panel__subtitle').text(second_name)
 
-    build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions)
     build_info(current_popup_data.id)
     build_video(current_popup_data.id)
 
-build_gallery = (_num_images, folder_name, captions)->
-    $('.photo_container img').remove()
+get_img = (id, folder, num) ->
+    images = []
+    for i in [1..num]
+        images.push( {img : settings.dataPath + id + '/' + folder + '/' + i + '.jpg'} )
+    return images
 
-    is_photo_enable = true
-    $('[data-target = photo]').removeClass("disabled")
+build_gallery = (dataImg, container)->    
+    if dataImg.length != 0
+        if (dataImg.length==1) 
+            container.addClass("fotorama--one-image")
+        else
+            container.removeClass("fotorama--one-image")
 
-    if _num_images == 0
-        is_photo_enable = false
-        $('[data-target = photo]').addClass("disabled")
+        fotorama = container.data("fotorama")
 
-    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/'+ _num_images + '.jpg') )
-    $('.photo_caption').append($('<span />'))
-    for i in [1.._num_images]
-        $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/' + i + '.jpg') )
-        if captions && captions[i-1]
-            $('.photo_caption').append($('<span />').html(captions[i-1][lang]))
-    $('.photo_container').append( $('<img>').attr('src', settings.dataPath + folder_name + '/photo/1.jpg') )
-    $('.photo_container img').fadeOut(50)
-    $('.photo_caption span').fadeOut(50);
-    $('.photo_container img').eq(showed_image).fadeIn(50)
-    $('.photo_caption span').eq(showed_image).fadeIn(50)
-    num_images = _num_images
+        if (fotorama)
+            fotorama.show(0)
+            fotorama.load(dataImg)
+        else
+            container.fotorama({
+                data: dataImg
+            })
+            fotorama = container.data("fotorama")
 
 build_info = (_id)->
     info_url = {"en": settings.dataPath + _id + "/index.html", "ru": settings.dataPath + _id + "/index_ru.html"}[lang]
