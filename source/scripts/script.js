@@ -116,6 +116,14 @@
     duration: 0
   });
 
+  load_popups_data = function() {
+    return $.getJSON(settings.dataPath + 'data.json', function(data) {
+      return popups_data = data.data;
+    });
+  };
+
+  load_popups_data();
+
   load_geodata = function() {
     var dataSource, data_item, j, len, results;
     results = [];
@@ -230,7 +238,7 @@
   };
 
   build_pups = function() {
-    var billboards, center, color, entity_key, j, key, keys, len, rect;
+    var billboards, center, color, dta, entity_key, j, k, key, keys, len, len1, rect, withInvest;
     billboards = scene.primitives.add(new Cesium.BillboardCollection());
     keys = [];
     for (key in oopt) {
@@ -239,6 +247,13 @@
     keys = keys.sort();
     for (j = 0, len = keys.length; j < len; j++) {
       entity_key = keys[j];
+      withInvest = false;
+      for (k = 0, len1 = popups_data.length; k < len1; k++) {
+        dta = popups_data[k];
+        if ((dta.id === "" + oopt[entity_key]._id) && dta.invest) {
+          withInvest = true;
+        }
+      }
       $(".left_menu").append('<div>');
       $(".left_menu div:last-child").text(entity_key).on('click', function(e) {
         var rect, text;
@@ -252,6 +267,9 @@
         setTimeout(open_menu, 100);
         return e.stopPropagation();
       });
+      if (withInvest) {
+        $(".left_menu div:last-child").addClass("left_menu__item--invest").append("<i class='left_menu__item__icon icon-attach_money'></i>");
+      }
       if (oopt[entity_key][0].isNP) {
         color = new Cesium.Color.fromCssColorString('#a66d61');
         $(".left_menu div:last-child").addClass('np');
@@ -315,15 +333,7 @@
     }, load_cities());
   };
 
-  load_cities = function() {
-    return load_popups_data();
-  };
-
-  load_popups_data = function() {
-    return $.getJSON(settings.dataPath + 'data.json', function(data) {
-      return popups_data = data.data;
-    });
-  };
+  load_cities = function() {};
 
   handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
 

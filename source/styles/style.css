@@ -157,6 +157,19 @@ p{
 .legend__item--fz:before{    
     background-color: #d8b366;
 }
+    .left_menu .left_menu__item--invest{
+        padding-right: 40px;
+    }
+    .left_menu__item__icon{
+        position: absolute;
+        right: 8px;
+        top: 9px;
+        font-size: 16px;
+        padding: 2px 3px;
+        border-radius: 2px;
+        background-color: rgba(255,255,255,.46);
+        color:#000;
+    }
 
 #cesiumContainer {
     position: absolute;
@@ -368,7 +381,7 @@ video{
     color: #fff;
     border-radius: 4px;
     background-color: rgba(0,0,0,.67);
-    padding: 6px 14px 8px 3px;
+    padding: 8px 14px 9px 8px;
     margin:0;
 }
     .legend__item{
@@ -378,10 +391,25 @@ video{
     }
         .legend__item:before{
             top: 6px;
+            left: 5px;
         }
 
         .legend__item:first-child{
             margin-left:0;
+        }
+
+    .legend__item--invest{
+        margin-top: 8px;
+    }
+        .legend__item__icon{
+            position: absolute;
+            left:0;
+            top: 1px;
+            font-size: 13px;
+            padding: 2px 3px;
+            border-radius: 2px;
+            background-color: rgba(255,255,255,.46);
+            color: #000;
         }
 
 .photo_caption{

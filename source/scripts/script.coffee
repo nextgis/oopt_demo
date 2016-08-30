@@ -124,6 +124,11 @@ scene.camera.flyTo({
 
 
 #    DATA LOADER
+load_popups_data = ()->
+    $.getJSON(settings.dataPath + 'data.json', (data)->
+        popups_data =  data.data
+    )
+load_popups_data()
 
 load_geodata =()->
     for data_item in geodata
@@ -219,6 +224,11 @@ build_pups = ()->
 
     for entity_key in keys
 
+        withInvest = false
+        for dta in popups_data
+            if (dta.id == "" + oopt[entity_key]._id) && (dta.invest)
+                withInvest = true
+
         $(".left_menu").append('<div>')
         $(".left_menu div:last-child").text(entity_key).on('click', (e)->
             $('.popup').hide()
@@ -228,8 +238,10 @@ build_pups = ()->
             selected_polygon_name = text
             setTimeout(open_menu, 100)
             e.stopPropagation()
-
         )
+
+        if withInvest
+           $(".left_menu div:last-child").addClass("left_menu__item--invest").append("<i class='left_menu__item__icon icon-attach_money'></i>")
 
         if oopt[entity_key][0].isNP
             color = new Cesium.Color.fromCssColorString('#a66d61')
@@ -305,14 +317,6 @@ load_cities = ()->
 #            font      : '12px Helvetica'
 #        });
 #    scene.primitives.add(labels);
-    load_popups_data()
-
-
-load_popups_data = ()->
-    $.getJSON(settings.dataPath + 'data.json', (data)->
-        popups_data =  data.data
-    )
-
 
 
 
