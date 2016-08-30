@@ -591,7 +591,7 @@
     $('.info-panel__title').text(selected_polygon_name);
     $('.info-panel__subtitle').text(second_name);
     build_info(current_popup_data.id);
-    if (!current_popup_data.video) {
+    if (current_popup_data.video) {
       return build_video(current_popup_data.id);
     }
   };
@@ -665,7 +665,7 @@
     var video_parent;
     video_parent = $('video').parent();
     $('video').remove();
-    video_parent.append('<video class="popup__panel__inner"></video>');
+    video_parent.append('<video></video>');
     $('video').attr('src', settings.dataPath + _id + '/video/1.mov');
     $('video').attr('src-mp4', settings.dataPath + _id + '/video/1.mp4');
     $('video').attr('preload', 'metadata');

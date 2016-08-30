@@ -555,7 +555,8 @@ prepare_popup = (_id)->
     $('.info-panel__subtitle').text(second_name)
 
     build_info(current_popup_data.id)
-    if !current_popup_data.video
+
+    if current_popup_data.video
         build_video(current_popup_data.id)
 
 get_img = (id, folder, num) ->
@@ -603,9 +604,9 @@ build_investment = (_id)->
 build_video = (_id)->
     video_parent = $('video').parent()
     $('video').remove()
-    video_parent.append('<video class="popup__panel__inner"></video>')
-    $('video').attr('src', settings.dataPath + _id+'/video/1.mov')
-    $('video').attr('src-mp4', settings.dataPath + _id+'/video/1.mp4')
+    video_parent.append('<video></video>')
+    $('video').attr('src', settings.dataPath + _id + '/video/1.mov')
+    $('video').attr('src-mp4', settings.dataPath + _id + '/video/1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
