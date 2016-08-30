@@ -455,7 +455,7 @@
       "en": "National Park",
       "ru": "Национальный парк"
     }[lang] : {
-      "en": "Nature Reserve",
+      "en": "Zapovednik",
       "ru": "Заповедник"
     }[lang];
     $('.popup h2').text(selected_polygon_name + " " + second_name);
