@@ -55,6 +55,29 @@ insertByAjax = (url, container, callback)->
             container.empty()
     })
 
+# BUILD ABOUT INFO
+build_about = ()->
+    about_url = {"en": "about.html", "ru": "about_ru.html"}[lang]
+    insertByAjax(about_url, $(".copyright__info__inner"), ()->
+        $(".about__cesium-credit").append($(".cesium-viewer-bottom").detach())
+    )
+    $(".copyright__info-link").on("click", (e)->
+        e.stopPropagation()
+        e.preventDefault()
+        $(".copyright__info").fadeToggle(100)
+    )
+
+    $(".copyright__info__close").on("click", (e)->
+        e.preventDefault()
+        $(".copyright__info").fadeOut(100)
+    )
+
+    $(".copyright__info").on("click", (e)->
+        e.stopPropagation()
+    )
+   
+build_about()
+
 #   NORTH POLE CIRCLE
 circleGeometry = new Cesium.CircleGeometry({
     center : Cesium.Cartesian3.fromDegrees(90.0, 90.0),
@@ -466,6 +489,7 @@ close_menu = ()->
 
 
 $(document).on('click', ()->
+    $(".copyright__info__close").click()
     if selected_polygon_name != ""
         close_menu())
 
