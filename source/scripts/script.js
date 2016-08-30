@@ -320,6 +320,7 @@
 
   build_info_box = function(data) {
     var dataImg, fotorama, i, j, ref;
+    $(".info-box").scrollTop(0);
     $(".info-box__title").text(data.descript);
     fotorama = $(".fotorama").data("fotorama");
     if (data.num_images === 1) {

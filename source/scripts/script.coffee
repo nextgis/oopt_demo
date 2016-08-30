@@ -308,6 +308,7 @@ add_info_box_data = (term, value)->
     </div>")
 
 build_info_box = (data)->
+    $(".info-box").scrollTop(0)
     $(".info-box__title").text(data.descript)
 
     
