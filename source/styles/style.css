@@ -454,6 +454,12 @@ p{
     transition: bottom .6s;
     font-size: 14px
 }
+
+@media (max-height: 800px){
+    .info-panel{
+        bottom: 40px;
+    }
+}
     .info-panel--hidden{
         bottom: -500px;
     }
