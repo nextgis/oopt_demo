@@ -474,10 +474,14 @@ open_popup = (target)->
     $('.popup:hidden').fadeIn()
     $('.popup__panel').hide()
 
+    $(".popup__subtitle--invest").hide()
+    $(".popup__subtitle--routes").hide()
+
     if (!$('video')[0].paused)
         $('video')[0].pause()
 
     targetPanel.show()
+    targetPanel.scrollTop(0)
 
     if (target == "video")
         $('video')[0].play()
@@ -486,10 +490,18 @@ open_popup = (target)->
         dataImg = get_img(current_popup_data.id, "photo", current_popup_data.images)
         build_gallery(dataImg, $(".photo-gallery"))
 
+    if (target == "route")
+        build_routes(current_popup_data.id)
+
+    if (target == "investment")
+        build_investment(current_popup_data.id)
+
 close_popup = ()->    
     $('.popup').fadeOut()
     if (!$('video')[0].paused)
         $('video')[0].pause()
+    $(".popup__subtitle--invest").hide()
+    $(".popup__subtitle--routes").hide()
 
 $('.close_popup').on('click', (e)->
     close_popup()
@@ -514,7 +526,8 @@ prepare_popup = (_id)->
     $('.info-panel__subtitle').text(second_name)
 
     build_info(current_popup_data.id)
-    build_video(current_popup_data.id)
+    if !current_popup_data.video
+        build_video(current_popup_data.id)
 
 get_img = (id, folder, num) ->
     images = []
@@ -544,10 +557,21 @@ build_info = (_id)->
     info_url = {"en": settings.dataPath + _id + "/index.html", "ru": settings.dataPath + _id + "/index_ru.html"}[lang]
     insertByAjax(info_url, $(".popup__panel--info"))
 
-build_video = (_id)->
-    is_video_enable = true
+build_routes = (_id)->
+    $(".popup__subtitle--routes").show()
+    route_url = {"en": settings.dataPath + _id + "/routes.html", "ru": settings.dataPath + _id + "/routes_ru.html"}[lang]
+    insertByAjax(route_url, $(".popup__panel--route .popup__panel__text"))
+    dataImg = get_img(current_popup_data.id, "photo_route", current_popup_data.route_images)
+    build_gallery(dataImg, $(".routes-gallery"))
 
-    $('[data-target = video]').removeClass("disabled")
+build_investment = (_id)->
+    $(".popup__subtitle--invest").show()
+    investment_url = {"en": settings.dataPath + _id + "/invest.html", "ru": settings.dataPath + _id + "/invest_ru.html"}[lang]
+    insertByAjax(investment_url, $(".popup__panel--investment .popup__panel__text"))
+    dataImg = get_img(current_popup_data.id, "photo_invest", current_popup_data.invest_images)
+    build_gallery(dataImg, $(".invest-gallery"))
+
+build_video = (_id)->
     video_parent = $('video').parent()
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
@@ -556,11 +580,7 @@ build_video = (_id)->
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
-
     $("video").on("error", ()->
-      if $('video').attr('src') == $('video').attr('src-mp4')
-          is_video_enable = false
-          $('[data-target = video]').addClass("disabled")
-      else
+      if $('video').attr('src') != $('video').attr('src-mp4')
           $('video').attr('src', $('video').attr('src-mp4'))
     )
