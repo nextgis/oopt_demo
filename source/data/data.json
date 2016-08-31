@@ -309,6 +309,8 @@
             "video": true,
             "route": true,
             "route_images": 3,
+            "invest": true,
+            "invest_images": 11,
             "url": "http://www.kronoki.ru"
         },
         {
