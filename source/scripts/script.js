@@ -312,9 +312,6 @@
       rect = get_oopt_rect(entity_key);
       center = Cesium.Rectangle.center(rect);
       center = [center.latitude, center.longitude];
-      if (entity_key === 'Ostrov Vrangelya') {
-        center = [rect.north, rect.east];
-      }
       oopt[entity_key].center = center;
       billboards.add({
         image: 'images/pin.png',

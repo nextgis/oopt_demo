@@ -282,9 +282,6 @@ build_pups = ()->
 
         center = Cesium.Rectangle.center(rect)
         center = [center.latitude, center.longitude]
-        if entity_key == 'Ostrov Vrangelya'
-            center = [rect.north, rect.east]
-
 
         oopt[entity_key].center = center
 
