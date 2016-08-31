@@ -1276,8 +1276,9 @@
         },
         {
             "id": "3067",
-            "images": 10,
+            "images": 41,
             "route": true,
+            "route_images": 18,
             "url": ""
         },
         {
