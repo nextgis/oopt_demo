@@ -495,7 +495,7 @@ $(document).on('click', ()->
 
 open_popup = (target)->
     targetPanel = $(".popup__panel--" + target)
-    $('.popup:hidden').fadeIn()
+    $('.popup:hidden').show()
     $('.popup__panel').hide()
 
     $(".popup__subtitle--invest").hide()

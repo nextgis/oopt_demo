@@ -517,7 +517,7 @@
   open_popup = function(target) {
     var dataImg, targetPanel;
     targetPanel = $(".popup__panel--" + target);
-    $('.popup:hidden').fadeIn();
+    $('.popup:hidden').show();
     $('.popup__panel').hide();
     $(".popup__subtitle--invest").hide();
     $(".popup__subtitle--routes").hide();
