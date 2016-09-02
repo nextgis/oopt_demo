@@ -565,7 +565,7 @@
       "en": "Video",
       "ru": "Видео"
     }[lang]);
-    video_parent = $('video').parent();
+    video_parent = $('.popup__panel.video');
     $('video').remove();
     video_parent.append('<video class="popup__panel__inner"></video>');
     $('video').attr('src', settings.dataPath + _id + '/video/1.mov');
