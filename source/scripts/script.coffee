@@ -586,13 +586,16 @@ build_video = (_id)->
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
     $('video').attr('src', settings.dataPath + _id+'/video/video_1.mp4')
+    $('video').attr('src-mp4', settings.dataPath + _id+'/video/1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
-
     $("video").on("error", ()->
+      if $('video').attr('src') == $('video').attr('src-mp4')
           is_video_enable = false
           $('.popup_menu .video').css('opacity', 0.5)
           $('.popup_menu .video').text({"en": "No Video", "ru": "Нет Видео"}[lang])
+      else
+          $('video').attr('src', $('video').attr('src-mp4'))
     )
 
