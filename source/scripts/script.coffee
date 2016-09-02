@@ -449,7 +449,7 @@ open_popup = (target)->
     if (!$('video')[0].paused)
         $('video')[0].pause()
     target.show()
-    if (target.find("video"))
+    if (target.find("video").length)
         target.find("video")[0].currentTime = 0
         target.find("video")[0].play()
 
