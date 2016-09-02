@@ -498,8 +498,7 @@
     $('.menu_op_name').text(selected_polygon_name).append($('<div class="small-header"></div>').text(second_name));
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions);
     build_info(current_popup_data.id);
-    build_video(current_popup_data.id);
-    return build_web(current_popup_data.url);
+    return build_video(current_popup_data.id);
   };
 
   build_gallery = function(_num_images, folder_name, captions) {

@@ -506,7 +506,7 @@ prepare_popup = (_id)->
     build_gallery(current_popup_data.images, current_popup_data.id, current_popup_data.captions)
     build_info(current_popup_data.id)
     build_video(current_popup_data.id)
-    build_web(current_popup_data.url)
+    #build_web(current_popup_data.url)
 
 
 
