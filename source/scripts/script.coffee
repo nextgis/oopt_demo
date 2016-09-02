@@ -25,6 +25,18 @@ viewer = new Cesium.Viewer('cesiumContainer',
     }
 )
 
+isAnimate = false;
+
+stopRendering = () ->
+    viewer.camera.moveEnd.addEventListener(() -> 
+        viewer.useDefaultRenderLoop = false
+    )
+    
+
+startRendering = () ->
+    viewer.useDefaultRenderLoop = true
+
+
 #   MAPS TILE
 #osm = new Cesium.OpenStreetMapImageryProvider({
 #    maximumLevel : 500,
@@ -385,6 +397,7 @@ is_video_enable = true
 $('.popup_menu .video').on('click', (e)->
     if is_video_enable
         open_popup($('.popup .video'))
+        stopRendering()
 )
 
 is_photo_enable = true
@@ -407,7 +420,7 @@ $('.popup_menu .photo').on('click', (e)->
 
 
 open_menu = ()->
-
+    startRendering()
     selected_id = oopt[selected_polygon_name]._id
     prepare_popup(selected_id)
 
@@ -427,7 +440,8 @@ open_menu = ()->
             $(this).addClass('selected_item')
     )
 
-close_menu = ()->
+close_menu = ()->    
+    startRendering()
     $('.left_menu div').removeClass('selected_item')
     $('.popup_menu').stop()
     $('.popup_menu').animate({bottom:"-30%"}, 500)
@@ -440,6 +454,7 @@ close_menu = ()->
 
 $(document).on('click', ()->
     $(".copyright__info__close").click()
+    $('.close_popup').click()
     if selected_polygon_name != ""
         close_menu())
 
@@ -453,7 +468,8 @@ open_popup = (target)->
         target.find("video")[0].currentTime = 0
         target.find("video")[0].play()
 
-$('.close_popup').on('click', (e)->
+$('.close_popup').on('click', (e)->    
+    startRendering()
     $('.popup').hide()
     if (!$('video')[0].paused)
         $('video')[0].pause()
