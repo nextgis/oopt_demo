@@ -26,16 +26,23 @@ viewer = new Cesium.Viewer('cesiumContainer',
 )
 
 isAnimate = false;
+viewer.camera.moveStart.addEventListener(() ->
+    isAnimate = true
+)
+viewer.camera.moveEnd.addEventListener(() ->
+    isAnimate = false
+)
+
+resetDefaultRenderLoop = () ->
+    viewer.useDefaultRenderLoop = false
 
 stopRendering = () ->
-    viewer.camera.moveEnd.addEventListener(() -> 
-        viewer.useDefaultRenderLoop = false
-    )
+    resetDefaultRenderLoop()
     
 
 startRendering = () ->
-    viewer.useDefaultRenderLoop = true
-
+    if !viewer.useDefaultRenderLoop
+        viewer.useDefaultRenderLoop = true
 
 #   MAPS TILE
 #osm = new Cesium.OpenStreetMapImageryProvider({
@@ -391,6 +398,7 @@ $('.popup_menu').on('click', (e)->
 
 $('.popup_menu .info').on('click', (e)->
     open_popup($('.popup .info'))
+    startRendering()
 )
 
 is_video_enable = true
@@ -402,8 +410,10 @@ $('.popup_menu .video').on('click', (e)->
 
 is_photo_enable = true
 $('.popup_menu .photo').on('click', (e)->
+    startRendering()
     if is_photo_enable
         open_popup($('.popup .photo'))
+
 )
 
 #$('.popup_menu .web').on('click', (e)->
@@ -440,7 +450,7 @@ open_menu = ()->
             $(this).addClass('selected_item')
     )
 
-close_menu = ()->    
+close_menu = ()->
     startRendering()
     $('.left_menu div').removeClass('selected_item')
     $('.popup_menu').stop()
@@ -468,7 +478,7 @@ open_popup = (target)->
         target.find("video")[0].currentTime = 0
         target.find("video")[0].play()
 
-$('.close_popup').on('click', (e)->    
+$('.close_popup').on('click', (e)->
     startRendering()
     $('.popup').hide()
     if (!$('video')[0].paused)
@@ -575,18 +585,13 @@ build_video = (_id)->
     video_parent = $('.popup__panel.video')
     $('video').remove()
     video_parent.append('<video class="popup__panel__inner"></video>')
-    $('video').attr('src', settings.dataPath + _id+'/video/1.mov')
-    $('video').attr('src-mp4', settings.dataPath + _id+'/video/1.mp4')
+    $('video').attr('src', settings.dataPath + _id+'/video/video_1.mp4')
     $('video').attr('preload','metadata')
     $('video').attr('controls','true')
 
 
     $("video").on("error", ()->
-      if $('video').attr('src') == $('video').attr('src-mp4')
-          is_video_enable = false
           $('.popup_menu .video').css('opacity', 0.5)
           $('.popup_menu .video').text({"en": "No Video", "ru": "Нет Видео"}[lang])
-      else
-          $('video').attr('src', $('video').attr('src-mp4'))
     )
 
